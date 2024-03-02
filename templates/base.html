@@ -31,11 +31,11 @@
     <!-- Custom css -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   </head>
-  <body class="d-flex flex-lg-column min-vh-100">
+  <body class="d-flex flex-column min-vh-100">
     <!-- Nav bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Bladez &amp; Fadez</a>
+        <a class="navbar-brand" href="{% url 'home' %}">Bladez &amp; Fadez</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -53,7 +53,7 @@
               <a
                 class="nav-link {% if request.path == home_url%}active{%endif%}"
                 aria-current="page"
-                href="#"
+                href="{% url 'home' %}"
                 >Home</a
               >
             </li>
@@ -76,8 +76,9 @@
     <!-- Footer -->
     <footer class="footer mt-auto bg-dark">
       <p class="m-1 text-center text-white">
-        {% block copyright %}Designed and maintained by: JBL Technical Services
-        &copy; {% now "Y" %} {% endblock %}
+        {% block copyright %}Designed by: JBL Technical Services &copy;
+        <!-- Current year -->
+        {%now "Y" %} {% endblock %}
       </p>
 
       <!-- <p class="m-3 text-center text-white">Follow us:</p> -->
