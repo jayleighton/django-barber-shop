@@ -17,11 +17,22 @@ p a i {
 }
 
 .log-in-container {
-  background-color: #0f0f0f;
+  background-color: #040404;
   opacity: 0.8;
   margin-left: auto;
   margin-right: auto;
   margin-top: 8%;
 
   /* height: 50vh; */
+}
+
+.full-logo {
+  display: block;
+  margin: auto;
+  opacity: 1;
+}
+
+.btn-signup:hover {
+  color: #fff;
+  background-color: #4e4feb;
 }
