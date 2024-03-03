@@ -16,12 +16,13 @@ p a i {
   font-size: 2rem;
 }
 
-.log-in-container {
+.auth-container {
   background-color: #040404;
   opacity: 0.8;
   margin-left: auto;
   margin-right: auto;
   margin-top: 8%;
+  min-width: 40vw;
 
   /* height: 50vh; */
 }
@@ -35,4 +36,13 @@ p a i {
 .btn-signup:hover {
   color: #fff;
   background-color: #4e4feb;
+}
+
+.btn-signout {
+  text-align: center;
+}
+
+.btn-signout:hover {
+  color: #fff;
+  background-color: #040404;
 }

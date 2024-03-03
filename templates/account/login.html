@@ -7,21 +7,21 @@
 <!-- Content block -->
 {% block content %}
 
-<div class="log-in-container pb-5">
+<div class="auth-container pb-5">
   <div class="container pt-5">
-    <div class="row">
+    <div class="row text-center">
       <div class="col-md-6 offset-md-3 text-white">
         <img
           src="{% static 'images/logo.webp' %}"
           alt="bladez and fadez logo"
           class="full-logo"
         />
-        <h1 class="text-center pb-2">{% trans "Sign In" %}</h1>
+        <h1 class="pb-2">{% trans "Sign In" %}</h1>
 
         {% get_providers as socialaccount_providers %}
         <p>
-          {% blocktrans with site.name as site_name %}Welcome back to Bladez and
-          Fadez.
+          {% blocktrans with site.name as site_name %}Welcome back to
+          <strong>Bladez and Fadez.</strong>
         </p>
         <p>
           To manage your bookings, please log in. If you have not created an
@@ -33,7 +33,7 @@
   </div>
 
   <div class="container">
-    <div class="row">
+    <div class="row text-center">
       <div class="col-md-6 offset-md-3 mt-4 text-white">
         <form class="login" method="POST" action="{% url 'account_login' %}">
           {% csrf_token %} {{ form.as_p }} {% if redirect_field_value %}
