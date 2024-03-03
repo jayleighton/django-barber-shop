@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% load i18n %} {% load account socialaccount %}
+<!-- Head title -->
+{% block head_title %}{% trans "Sign In" %}{% endblock head_title %}
+
+<!-- Content block -->
+{% block content %}
+
+<div class="log-in-container pb-5">
+  <div class="container pt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 text-white">
+        <h1>{% trans "Sign In" %}</h1>
+
+        {% get_providers as socialaccount_providers %}
+        <p>
+          {% blocktrans with site.name as site_name %}Welcome back to Bladez and
+          Fadez.
+        </p>
+        <p>
+          To manage your bookings, please log in. If you have not created an
+          account yet, then please <a href="{{ signup_url }}">sign up</a> first.
+          {% endblocktrans %}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 mt-4 text-white">
+        <form class="login" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %} {{ form.as_p }} {% if redirect_field_value %}
+          <input
+            type="hidden"
+            name="{{ redirect_field_name }}"
+            value="{{ redirect_field_value }}"
+          />
+          {% endif %}
+
+          <button
+            class="btn btn-lg btn-signup btn-dark right-align"
+            type="submit"
+          >
+            {% trans "Sign In" %}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
