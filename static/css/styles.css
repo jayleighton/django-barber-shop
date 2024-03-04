@@ -22,31 +22,29 @@ p a i {
 
 .logo {
   display: block;
-  opacity: 0.8;
   margin-left: auto;
   margin-right: auto;
-  position: relative;
-  top: 50%;
 }
 
 .title-text {
-  margin-top: 20px;
+  /* margin-top: 20px;
   text-align: center;
-  font-size: 2em;
+  font-size: 4em;
+  font-weight: 700; */
 }
 
 .title-text-container {
-  background-color: black;
-  margin-left: auto;
-  margin-right: auto;
-  height: 3rem;
-  opacity: 0.8;
-  width: 20%;
+  /* display: inline-block;
+  background-color: #040404;
+  /* margin-left: auto;
+  margin-right: auto; */
+  /* text-align: center; */
+  /* opacity: 0.8; */
+  /* width: 30vw; */
 }
-
-.details-border {
-  border-left: 2px solid black;
-  border-bottom: 2px solid black;
+*/ .details-border {
+  border-left: 2px solid #040404;
+  border-bottom: 2px solid #040404;
 }
 
 .foot-text {
