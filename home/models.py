@@ -13,17 +13,7 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
     
-class StaffUser(models.Model):
-    username = models.OneToOneField(
-        User, on_delete=models.CASCADE,
-    )
-    description = models.TextField(blank=True, null=True)
-    image = CloudinaryField('image', default='placeholder')
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        ordering = ['-created_on']
 
    
     

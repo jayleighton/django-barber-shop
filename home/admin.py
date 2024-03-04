@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django_summernote.admin import SummernoteModelAdmin
 from .forms import CustomSignUpForm
-from .models import User, StaffUser
+from .models import User
 
 # Register your models here.
 # admin.site.register(User, UserAdmin)
