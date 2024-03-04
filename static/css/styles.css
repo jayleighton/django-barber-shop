@@ -84,10 +84,10 @@ p a i {
 
 .btn-edit:hover {
   color: #fff;
-  background-color: #4e4feb;
+  background-color: #040404;
 }
 
 .btn-delete:hover {
   color: #fff;
-  background-color: #040404;
+  background-color: red;
 }

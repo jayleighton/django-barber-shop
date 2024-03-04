@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, HttpResponse
 from django.views import generic
 from home.models import User
 
@@ -13,4 +13,14 @@ def select_staff(request):
     
     return render(request, 'setup/select_staff.html', {
         'data': queryset,
+    })
+
+
+def edit_staff(request, user_id):
+    queryset = User.objects.all()
+    user = get_object_or_404(queryset, id=user_id)
+    print(user.id)
+
+    return render(request, 'setup/add_staff.html', {
+        'user': user, 
     })
