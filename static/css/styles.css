@@ -12,6 +12,43 @@ p a i {
   color: white;
 }
 
+.main-bg {
+  background-image: url("/static/images/main_bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 70vh;
+  background-size: cover;
+}
+
+.logo {
+  display: block;
+  opacity: 0.8;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 50%;
+}
+
+.title-text {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 2em;
+}
+
+.title-text-container {
+  background-color: black;
+  margin-left: auto;
+  margin-right: auto;
+  height: 3rem;
+  opacity: 0.8;
+  width: 20%;
+}
+
+.details-border {
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
 .foot-text {
   font-size: 2rem;
 }

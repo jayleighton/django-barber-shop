@@ -1,3 +1,45 @@
 {% extends "base.html" %} {% block content %}
-<h1>Hello</h1>
+<!-- Load static content -->
+{% load static %}
+<div class="container-fluid">
+  <div class="row">
+    <!-- Blog Entries Column -->
+    <div class="col-12 left main-bg">
+      <img
+        class="logo"
+        src="{% static 'images/logo.webp'%}"
+        alt="Bladez and fadez logo"
+      />
+      <div class="title-text-container">
+        <h1 class="title-text text-white">Bladez &amp; Fadez</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="details">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 details-border text-center">
+        <h2>Address</h2>
+        <p>8 Endsleigh Estate</p>
+        <p>Douglas Road</p>
+        <p>Cork</p>
+        <p>Ireland</p>
+      </div>
+      <div class="col-md-4 text-center details-border">
+        <h2>contact us</h2>
+        <p>Tel: +353 025 22365</p>
+        <p>Email: bladez_and_fadez@gmail.com</p>
+        <h3>Operating Times:</h3>
+        <p>Monday - Saturday: 08h00 until 18h00</p>
+      </div>
+      <div class="col-md-4 text-center details-border">
+        <a href="#"
+          ><button class="btn btn-lg btn-dark btn-book">Book Now</button></a
+        >
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
