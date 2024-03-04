@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from allauth.account.forms import SignupForm
 from django.http import HttpResponseRedirect
-from .models import User
+from .models import User, StaffUser
 from .forms import CustomSignUpForm
 
 def home_page(request):
@@ -20,5 +20,13 @@ class CustomSignUpView(SignupForm):
     model = User
     form_class = CustomSignUpForm
     template_name = 'signup.html'
+
+class StaffList(generic.ListView):
+    queryset = User.objects.filter(is_staff=True, is_superuser=False)
+    template_name = 'home/staff.html'
+    
+
+
+
 
     

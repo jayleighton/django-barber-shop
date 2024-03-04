@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block content %}
+<div class="text-center mt-2 mb-2">
+    <h1>Bladez &amp; Fadez Staff</h1>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- Blog Entries Column -->
+    <div class="col-12 mt-3 left">
+      <div class="row">
+        {% for member in user_list %}
+        <div class="col-md-3">
+          <div class="card mb-4 h-100">
+            <div class="card-body d-flex flex-column">
+              <div class="image-container">
+                {% if "placeholder" in member.image.url %}
+                <img class="card-img-top" src="#" alt="placeholder image" />
+                {% else %}
+                <img
+                  class="card-img-top scale"
+                  src=" {{ member.image.url }}"
+                  alt="{{ member.first_name }}"
+                />
+                {% endif %}
+              </div>
+
+              <h2 class="card-title">
+                {{ member.first_name }} {{ member.last_name }}
+              </h2>
+              <p class="card-text">{{ member.description|safe }}</p>
+
+              <div class="card-footer mt-auto">
+                <a href="#" class="btn btn-lg btn-primary">Edit</a>
+                <a href="#" class="btn btn-lg btn-primary">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% if forloop.counter|divisibleby:4 %}
+        </div>
+        <div class="row mt-2">{% endif %}  {% endfor %}</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
