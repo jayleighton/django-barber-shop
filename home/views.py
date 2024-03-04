@@ -24,6 +24,9 @@ class CustomSignUpView(SignupForm):
 class StaffList(generic.ListView):
     queryset = User.objects.filter(is_staff=True, is_superuser=False)
     template_name = 'home/staff.html'
+
+def add_staff(request):
+    return render(request, template_name='home/add_staff.html')
     
 
 
