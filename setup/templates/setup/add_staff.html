@@ -1,7 +1,26 @@
 {% extends "base.html" %}
 <!-- Load static content -->
-{% load static %} {% block content %}
+{% load static %}
+<!-- Crispy forms -->
+{% load crispy_forms_tags %} {% block content %}
 
 <h1>Add staff over here</h1>
 
-{{ data }} {% endblock %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <form
+        id="staffForm"
+        method="post"
+        action="{% url 'edit-staff' users_id%}"
+      >
+        {{ staff_form | crispy }} {% csrf_token %}
+        <button id="submitButton" type="submit" class="btn btn-signup btn-lg">
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

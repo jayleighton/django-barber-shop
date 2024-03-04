@@ -1,0 +1,93 @@
+body {
+  /* font-family: "Oswald", sans-serif; */
+  font-family: "Lato", sans-serif;
+}
+
+nav,
+footer {
+  font-family: "Lato", sans-serif;
+}
+
+p a i {
+  color: white;
+}
+
+.main-bg {
+  background-image: url("/static/images/main_bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 70vh;
+  background-size: cover;
+}
+
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title-text {
+  /* margin-top: 20px;
+  text-align: center;
+  font-size: 4em;
+  font-weight: 700; */
+}
+
+.title-text-container {
+  /* display: inline-block;
+  background-color: #040404;
+  /* margin-left: auto;
+  margin-right: auto; */
+  /* text-align: center; */
+  /* opacity: 0.8; */
+  /* width: 30vw; */
+}
+*/ .details-border {
+  border-left: 2px solid #040404;
+  border-bottom: 2px solid #040404;
+}
+
+.foot-text {
+  font-size: 2rem;
+}
+
+.auth-container {
+  background-color: #040404;
+  opacity: 0.8;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4%;
+  min-width: 40vw;
+
+  /* height: 50vh; */
+}
+
+.full-logo {
+  display: block;
+  margin: auto;
+  opacity: 1;
+}
+
+.btn-signup:hover {
+  color: #fff;
+  background-color: #4e4feb;
+}
+
+.btn-signout {
+  text-align: center;
+}
+
+.btn-signout:hover {
+  color: #fff;
+  background-color: #040404;
+}
+
+.btn-edit:hover {
+  color: #fff;
+  background-color: #040404;
+}
+
+.btn-delete:hover {
+  color: #fff;
+  background-color: red;
+}

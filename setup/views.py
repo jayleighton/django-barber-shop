@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse
 from django.views import generic
 from home.models import User
+from .forms import StaffForm
 
 # Create your views here.
 class StaffList(generic.ListView):
@@ -19,8 +20,13 @@ def select_staff(request):
 def edit_staff(request, user_id):
     queryset = User.objects.all()
     user = get_object_or_404(queryset, id=user_id)
-    print(user.id)
+
+    # Post method next
+
+
+    staff_form = StaffForm(instance=user)
 
     return render(request, 'setup/add_staff.html', {
-        'user': user, 
+        'staff_form': staff_form,
+        'users_id': user.id, 
     })
