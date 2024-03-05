@@ -1,5 +1,5 @@
 from django import forms
-from home.models import User, Info
+from home.models import User, Info, TradingDays
 from django_summernote.widgets import SummernoteWidget
 from cloudinary.forms import CloudinaryFileField
 
@@ -23,4 +23,9 @@ class ShopInfoForm(forms.ModelForm):
     class Meta:
         model = Info
         fields = ['address1', 'address2','city','country','postal_code','telephone','email']
+
+class TradingDaysForm(forms.ModelForm):
+    class Meta:
+        model = TradingDays
+        fields = ['day', 'open_time', 'close_time']
             

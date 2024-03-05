@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from cloudinary.models import CloudinaryField
 
+DAYS = ((1, "Monday"), (2, "Tuesday"),(3, "Wednesday"),
+        (4, "Thursday"), (5, "Friday"), (6, "Saturday"),
+        (7, "Sunday"))
+
 class User(AbstractUser):
     """
     Extend the User model to include fields required for the app
@@ -28,6 +32,18 @@ class Info(models.Model):
 
     def __str__(self):
         return f"{self.address1}, {self.address2}, {self.city}, {self.country}"
+    
+
+class TradingDays(models.Model):
+    """
+    Model to store days and times that store operates
+    """
+    day = models.IntegerField(choices=DAYS, unique=True)
+    open_time = models.TimeField()
+    close_time = models.TimeField()
+
+    def __str__(self):
+        return f"{self.day} {self.open_time} - {self.close_time}"
 
 
    

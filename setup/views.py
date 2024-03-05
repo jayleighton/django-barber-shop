@@ -1,10 +1,10 @@
-from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, reverse
 from django.core.exceptions import PermissionDenied
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from home.models import User, Info
-from .forms import StaffForm, ShopInfoForm
+from home.models import User, Info, TradingDays
+from .forms import StaffForm, ShopInfoForm, TradingDaysForm
 
 # Create your views here.
 
@@ -48,4 +48,36 @@ def shop_info(request):
         return render(request, 'setup/shop_info.html', {
             'info_form': info_form,
         })
+    
+def show_trading_days(request):
+    table_data = TradingDays.objects.order_by('id')
+        
+    if not request.user.is_staff:
+        raise PermissionDenied
+    else:
+        return render(request, 'setup/trading_days.html', {
+            'table_data': table_data,
+        })
+    
+@login_required
+def add_trading_day(request):
+    if request.method == 'POST':
+        form = TradingDaysForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Trading day added successfully'
+            )
+            return HttpResponseRedirect(reverse('show-trading-days'))
+    
+    form = TradingDaysForm()
+
+    if not request.user.is_staff:
+        raise PermissionDenied
+    else:
+        return render(request, 'setup/edit-trading-days.html', {
+            'form': form,
+        })
+
 
