@@ -47,7 +47,7 @@
               <p class="card-text">{{ member.description|safe }}</p>
 
               <div class="mt-auto">
-                <a href="{% url 'edit-staff' member.id %}" class="btn btn-lg btn-light btn-edit">Edit</a>
+                <a href="/admin/home/user/{{member.id}}/change" class="btn btn-lg btn-light btn-edit" target="_blank">Edit</a>
                 <a href="#" class="btn btn-lg btn-dark btn-delete">Delete</a>
               </div>
             </div>

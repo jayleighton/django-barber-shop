@@ -9,7 +9,7 @@ from .forms import StaffForm
 
 
 class StaffList(generic.ListView):
-    queryset = User.objects.filter(is_staff=True, is_superuser=False)
+    queryset = User.objects.filter(is_staff=True, is_superuser=False).order_by('date_joined')
     template_name = 'setup/staff.html'
 
 
@@ -25,20 +25,3 @@ def select_staff(request):
             'data': queryset,
         })
 
-@login_required
-def edit_staff(request, user_id):
-    queryset = User.objects.all()
-    user = get_object_or_404(queryset, id=user_id)
-
-    # Post method next
-
-
-    staff_form = StaffForm(instance=user)
-
-    if not request.user.is_staff:
-        raise PermissionDenied
-    else:
-        return render(request, 'setup/add_staff.html', {
-            'staff_form': staff_form,
-            'users_id': user.id, 
-        })

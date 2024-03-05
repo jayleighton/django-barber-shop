@@ -2,7 +2,9 @@
 <!-- Load static content -->
 {% load static %}
 <!-- Crispy forms -->
-{% load crispy_forms_tags %} {% block content %}
+{% load crispy_forms_tags %}
+<!-- Load cloudinary -->
+{% load cloudinary %} {% block content %}
 
 <h1>Add staff over here</h1>
 
@@ -14,8 +16,14 @@
         method="post"
         action="{% url 'edit-staff' users_id%}"
       >
-        {{ staff_form | crispy }} {% csrf_token %}
-        <button id="submitButton" type="submit" class="btn btn-signup btn-lg">
+        <!-- {{ staff_form | crispy }} {% csrf_token %} -->
+        {{ staff_form.as_p }} {% csrf_token %}
+
+        <button
+          id="submitButton"
+          type="submit"
+          class="btn btn-dark btn-signup btn-lg"
+        >
           Submit
         </button>
       </form>
