@@ -1,5 +1,5 @@
 from django import forms
-from home.models import User
+from home.models import User, Info
 from django_summernote.widgets import SummernoteWidget
 from cloudinary.forms import CloudinaryFileField
 
@@ -18,4 +18,9 @@ class StaffForm(forms.ModelForm):
             self.fields['image'].options={
                 'tags': 'new_image',
             }
+
+class ShopInfoForm(forms.ModelForm):
+    class Meta:
+        model = Info
+        fields = ['address1', 'address2','city','country','postal_code','telephone','email']
             
