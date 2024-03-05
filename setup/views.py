@@ -65,12 +65,20 @@ def add_trading_day(request):
     if request.method == 'POST':
         form = TradingDaysForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            print("True")
+            result = form.save()
+            print(result)
             messages.add_message(
                 request, messages.SUCCESS,
                 'Trading day added successfully'
             )
             return HttpResponseRedirect(reverse('show-trading-days'))
+        else:
+            messages.add_message(
+                request, messages.ERROR,
+                'Day already exists, please use edit function'
+            )
+            return HttpResponseRedirect(reverse('show-trading-days')) 
     
     form = TradingDaysForm()
 
