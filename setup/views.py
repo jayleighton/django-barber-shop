@@ -3,7 +3,8 @@ from django.core.exceptions import PermissionDenied
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from home.models import User, Info, TradingDays
+from home.models import User
+from .models import Info,  TradingDays
 from .forms import StaffForm, ShopInfoForm, TradingDaysForm
 
 # Create your views here.
@@ -39,6 +40,7 @@ def shop_info(request):
                 request, messages.SUCCESS,
                 'Information updated successfully'
             )
+            return HttpResponseRedirect(reverse('home'))
 
     info_form = ShopInfoForm(instance=queryset)
 

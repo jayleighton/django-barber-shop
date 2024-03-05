@@ -1,5 +1,6 @@
 from django import forms
-from home.models import User, Info, TradingDays
+from home.models import User
+from .models import Info, TradingDays
 from django_summernote.widgets import SummernoteWidget
 from cloudinary.forms import CloudinaryFileField
 

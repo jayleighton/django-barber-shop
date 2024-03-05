@@ -9,7 +9,8 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from allauth.account.forms import SignupForm
 from django.http import HttpResponseRedirect
-from .models import User, Info
+from .models import User
+from setup.models import Info
 from .forms import CustomSignUpForm
 
 
