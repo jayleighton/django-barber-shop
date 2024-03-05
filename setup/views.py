@@ -132,7 +132,7 @@ def delete_trading_day(request, day_id):
         
         return HttpResponseRedirect(reverse('show-trading-days')) 
 
-
+@login_required
 def delete_user(request, user_id):
     if not request.user.is_staff:
         raise PermissionDenied
