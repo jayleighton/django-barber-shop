@@ -9,6 +9,7 @@ urlpatterns = [
     path('trading-days/edit/<int:day_id>/', views.edit_trading_days, name='edit-trading-days'),
     path('trading-days/', views.show_trading_days, name='show-trading-days'),
     path('services/', views.show_services, name='services'),
+    path('services/add/', views.add_service, name='add-service'),
     path('staff/', views.StaffList.as_view(), name='staff' ),
     path('staff/select/', views.select_staff, name='select-staff'),
     

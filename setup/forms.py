@@ -1,6 +1,6 @@
 from django import forms
 from home.models import User
-from .models import Info, TradingDays
+from .models import Info, TradingDays, Service
 from django_summernote.widgets import SummernoteWidget
 from cloudinary.forms import CloudinaryFileField
 
@@ -34,4 +34,12 @@ class TradingDaysForm(forms.ModelForm):
             'open_time': forms.TimeInput(attrs={'type': 'time'}),
             'close_time': forms.TimeInput(attrs={'type': 'time'}),
         }
-            
+
+
+class ServiceForm(forms.ModelForm):
+    class Meta:
+        model = Service
+        fields = ['name', 'description', 'price', 'is_combo']
+        widgets = {
+            'description': SummernoteWidget(),
+        }

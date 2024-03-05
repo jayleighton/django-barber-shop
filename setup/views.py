@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from home.models import User
 from .models import Info,  TradingDays, Service
-from .forms import StaffForm, ShopInfoForm, TradingDaysForm
+from .forms import StaffForm, ShopInfoForm, TradingDaysForm, ServiceForm
 
 # Create your views here.
 
@@ -158,4 +158,32 @@ def show_services(request):
             'data': queryset,
         })
 
+@login_required
+def add_service(request):
+    if not request.user.is_staff:
+        raise PermissionDenied
+    else:
+
+        if request.method == 'POST':
+            form = ServiceForm(data=request.POST)
+            if form.is_valid():
+                form.save()
+                messages.add_message(
+                        request, messages.SUCCESS,
+                        'Service added successfully'
+                    )
+                return HttpResponseRedirect(reverse('services')) 
+            else:
+                messages.add_message(
+                        request, messages.ERROR,
+                        'An error occurred during processing. Please try again'
+                    )
+                return HttpResponseRedirect(reverse('services')) 
+
+        form = ServiceForm()
+      
+        return render(request, 'setup/edit-service.html', {
+            'form': form,
+            'mode': 'add',
+        })
 

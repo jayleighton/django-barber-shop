@@ -3,8 +3,8 @@
 {% load static %}
 <!-- Services url -->
 {% url 'services' as services_url %}
-<!-- Add Trading days url -->
-{% url 'add-trading-days' as add_days_url %}
+<!-- Add Service url -->
+{% url 'add-service' as add_service_url %}
 <!-- Delete Trading days url -->
 {% url 'delete-trading-day' as delete_day_url %}
 
@@ -20,7 +20,9 @@
             <div class="text-center mt-2 mb-2 text-white">
               <h1>Services:</h1>
               <hr />
-              <a href="#" class="btn btn-lg btn-light btn-edit"
+              <a
+                href="{% url 'add-service' %}"
+                class="btn btn-lg btn-light btn-edit"
                 ><i class="fas fa-plus-square"></i> Add New</a
               >
             </div>
