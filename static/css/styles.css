@@ -91,3 +91,7 @@ p a i {
   color: #fff;
   background-color: red;
 }
+
+.no-decoration {
+  text-decoration: none;
+}

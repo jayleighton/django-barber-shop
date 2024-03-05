@@ -25,7 +25,8 @@ def select_staff(request):
         return render(request, 'setup/select_staff.html', {
             'data': queryset,
         })
-    
+
+@login_required
 def shop_info(request):
     queryset = Info.objects.order_by('id').first()
     
