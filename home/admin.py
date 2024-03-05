@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django_summernote.admin import SummernoteModelAdmin
+from django.contrib.admin import ModelAdmin
 from .forms import CustomSignUpForm
-from .models import User
+from .models import User, Info
 
 # Register your models here.
 # admin.site.register(User, UserAdmin)
@@ -11,4 +12,8 @@ from .models import User
 class UserAdmin(SummernoteModelAdmin):
     list_display = ('username','first_name','last_name', 'email' )
     summernote_fields = ('description',)
+
+@admin.register(Info)
+class ShopInfo(admin.ModelAdmin):
+    list_display = ('address1', 'address2', 'city', 'country', 'telephone', 'email')
 

@@ -19,15 +19,21 @@
     <div class="row">
       <div class="col-md-4 details-border text-center">
         <h2>Address</h2>
-        <p>8 Endsleigh Estate</p>
-        <p>Douglas Road</p>
-        <p>Cork</p>
-        <p>Ireland</p>
+        <p>{{details.address1}}</p>
+        <p>{{details.address2}}</p>
+        <p>{{details.city}}</p>
+        <p>{{details.country}}</p>
+        <p>{{details.postal_code}}</p>
       </div>
       <div class="col-md-4 text-center details-border">
         <h2>contact us</h2>
-        <p>Tel: +353 025 22365</p>
-        <p>Email: bladez_and_fadez@gmail.com</p>
+        <p><i class="fas fa-phone"> </i> {{details.telephone}}</p>
+        <a href="mailto:{{details.email}}">
+          <p class="text-decoration-none">
+            <i class="fas fa-envelope"> </i> {{details.email}}
+          </p>
+        </a>
+
         <h3>Operating Times:</h3>
         <p>Monday - Saturday: 08h00 until 18h00</p>
       </div>

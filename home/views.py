@@ -7,11 +7,14 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from allauth.account.forms import SignupForm
 from django.http import HttpResponseRedirect
-from .models import User
-from .forms import CustomSignUpForm, add_staff_form
+from .models import User, Info
+from .forms import CustomSignUpForm
 
 def home_page(request):
-    return render(request, 'home/index.html')
+    queryset = Info.objects.first()
+    return render(request, 'home/index.html', {
+        'details': queryset,
+    })
 
 class CustomSignUpView(SignupForm):
     """
