@@ -116,17 +116,33 @@ def edit_trading_days(request, day_id):
             'mode': 'edit',
             'day': day_id
         })
-    
+
+@login_required    
 def delete_trading_day(request, day_id):
-    queryset = TradingDays.objects.all()
-    day_to_delete = get_object_or_404(queryset, id=day_id)
-    day_to_delete.delete()
-    messages.add_message(
-                request, messages.SUCCESS,
-                'Trading day deleted successfully'
-            )
-    
-    return HttpResponseRedirect(reverse('show-trading-days')) 
+    if not request.user.is_staff:
+        raise PermissionDenied
+    else:
+        queryset = TradingDays.objects.all()
+        day_to_delete = get_object_or_404(queryset, id=day_id)
+        day_to_delete.delete()
+        messages.add_message(
+                    request, messages.SUCCESS,
+                    'Trading day deleted successfully'
+                )
+        
+        return HttpResponseRedirect(reverse('show-trading-days')) 
 
 
+def delete_user(request, user_id):
+    if not request.user.is_staff:
+        raise PermissionDenied
+    else:
+        queryset = User.objects.all()
+        user_object = get_object_or_404(queryset, id=user_id)
+        user_object.delete()
+        messages.add_message(
+                    request, messages.SUCCESS,
+                    'User deleted successfully'
+                )
+        return HttpResponseRedirect(reverse('staff')) 
 

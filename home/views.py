@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import login_required
 from django.views.generic import (
     TemplateView, CreateView, UpdateView, DeleteView, ListView, View
 )
@@ -9,6 +11,7 @@ from allauth.account.forms import SignupForm
 from django.http import HttpResponseRedirect
 from .models import User, Info
 from .forms import CustomSignUpForm
+
 
 def home_page(request):
     queryset = Info.objects.first()

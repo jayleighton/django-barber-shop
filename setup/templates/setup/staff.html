@@ -1,6 +1,8 @@
 {% extends "base.html" %} 
 <!-- Load static content -->
 {% load static %}
+<!-- load delete staff url -->
+{% url 'delete-user' as delete_staff_url %}
 
 
 {% block content %}
@@ -47,8 +49,15 @@
               <p class="card-text">{{ member.description|safe }}</p>
 
               <div class="mt-auto">
-                <a href="/admin/home/user/{{member.id}}/change" class="btn btn-lg btn-light btn-edit" target="_blank">Edit</a>
-                <a href="#" class="btn btn-lg btn-dark btn-delete">Delete</a>
+                <a href="/admin/home/user/{{member.id}}/change" class="btn btn-lg btn-light btn-edit" target="_blank"><i class="far fa-edit"></i></a>
+                <button
+                      type="button"
+                      class="btn btn-dark btn-delete ms-3"
+                      data-bs-toggle="modal"
+                      data-bs-target="#confirmDelete-{{member.id}}"
+                    >
+                      <i class="fa fa-trash"></i>
+                    </button>
               </div>
             </div>
           </div>
@@ -60,4 +69,43 @@
     </div>
   </div>
 </div>
+
+
+{% for member in user_list %}
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="confirmDelete-{{member.id}}"
+  tabindex="-1"
+  aria-labelledby="confirmDeleteLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteLabel">Delete?</h5>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete user: {{member.first_name}} {{member.last_name}}?</p>
+        <p>This action cannot be reversed.</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-dark btn-edit"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+        <a
+          href="{% url 'delete-user' member.id %}"
+          class="btn btn-dark btn-delete"
+          >Confirm</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
 {% endblock %}
