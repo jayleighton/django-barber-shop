@@ -13,5 +13,5 @@ class TradingDaysAdmin(admin.ModelAdmin):
 
 @admin.register(Service)
 class ServiceAdmin(SummernoteModelAdmin):
-    list_display = ('name','description','price', 'is_combo' )
+    list_display = ('name','description','price', 'is_combo', 'created_on', 'updated_on' )
     summernote_fields = ('description',)

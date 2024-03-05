@@ -10,6 +10,8 @@
 {% url 'shop-info' as shop_info_url %}
 <!-- Trading days urls -->
 {% url 'show-trading-days' as trading_days_url %}
+<!-- Services url -->
+{% url 'services' as services_url %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -106,6 +108,11 @@
                     >Trading Days</a
                   >
                 </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'services' %}"
+                    >Services</a
+                  >
+                </li>
 
                 <li><hr class="dropdown-divider" /></li>
               </ul>
@@ -128,6 +135,7 @@
                 >Log in</a
               >
             </li>
+
             {% endif %}
           </ul>
 

@@ -4,7 +4,7 @@ from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from home.models import User
-from .models import Info,  TradingDays
+from .models import Info,  TradingDays, Service
 from .forms import StaffForm, ShopInfoForm, TradingDaysForm
 
 # Create your views here.
@@ -147,4 +147,15 @@ def delete_user(request, user_id):
                     'User deleted successfully'
                 )
         return HttpResponseRedirect(reverse('staff')) 
+
+@login_required
+def show_services(request):
+    queryset = Service.objects.all().order_by('name')
+    if not request.user.is_staff:
+        raise PermissionDenied
+    else:
+        return render(request, 'setup/services.html', {
+            'data': queryset,
+        })
+
 

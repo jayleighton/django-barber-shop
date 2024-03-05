@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 <!-- Load static content -->
 {% load static %}
-<!-- Edit Trading days url -->
-{% url 'edit-trading-days' as edit_days_url %}
+<!-- Services url -->
+{% url 'services' as services_url %}
 <!-- Add Trading days url -->
 {% url 'add-trading-days' as add_days_url %}
 <!-- Delete Trading days url -->
@@ -18,11 +18,9 @@
         <div class="row">
           <div class="col-md-4 offset-md-4">
             <div class="text-center mt-2 mb-2 text-white">
-              <h1>Trading Days:</h1>
+              <h1>Services:</h1>
               <hr />
-              <a
-                href="{% url 'add-trading-days' %}"
-                class="btn btn-lg btn-light btn-edit"
+              <a href="#" class="btn btn-lg btn-light btn-edit"
                 ><i class="fas fa-plus-square"></i> Add New</a
               >
             </div>
@@ -38,37 +36,32 @@
             >
               <thead>
                 <tr>
-                  <th scope="col">Day</th>
-                  <th scope="col">Open Time</th>
-                  <th scope="col">Closing Time</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Is Combo</th>
+                  <th scope="col">Created Date</th>
+                  <th scope="col">Updated Date</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
-                {% for data in table_data%}
+                {% for item in data%}
                 <tr>
-                  <td>{{ data.get_day_display }}</td>
-                  <td>{{ data.open_time }}</td>
-                  <td>{{ data.close_time }}</td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.price }}</td>
+                  <td>{{ item.is_combo }}</td>
+                  <td>{{ item.created_on }}</td>
+                  <td>{{ item.updated_on }}</td>
 
                   <td class="text-center">
-                    <a
-                      class="btn btn-light btn-edit ms-1"
-                      href="{% url 'edit-trading-days' data.id %}"
+                    <a class="btn btn-light btn-edit ms-1" href="#"
                       ><i class="far fa-edit"></i
                     ></a>
-                    <!-- <a
-                        type="button"
-                      class="btn btn-light btn-edit ms-5"
-                      href="#"
-                      target="_blank"
-                      ><i class="fas fa-trash"></i
-                    ></a> -->
                     <button
                       type="button"
                       class="btn btn-light btn-edit ms-5"
                       data-bs-toggle="modal"
-                      data-bs-target="#confirmDelete-{{data.id}}"
+                      data-bs-target="#confirmDelete-{{item.id}}"
                     >
                       <i class="fa fa-trash"></i>
                     </button>
@@ -85,10 +78,10 @@
 </div>
 
 <!-- Modal -->
-{% for data in table_data%}
+{% for item in data%}
 <div
   class="modal fade"
-  id="confirmDelete-{{data.id}}"
+  id="confirmDelete-{{item.id}}"
   tabindex="-1"
   aria-labelledby="confirmDeleteLabel"
   aria-hidden="true"
@@ -99,7 +92,7 @@
         <h5 class="modal-title" id="confirmDeleteLabel">Delete?</h5>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delete day: {{data.get_day_display}}?</p>
+        <p>Are you sure you want to delete service: {{item.name}}?</p>
         <p>This action cannot be reversed.</p>
       </div>
       <div class="modal-footer">
@@ -111,11 +104,7 @@
           Cancel
         </button>
         <!-- <button action="" type="button" class="btn btn-primary">Delete</button> -->
-        <a
-          href="{% url 'delete-trading-day' data.id %}"
-          class="btn btn-dark btn-delete"
-          >Confirm</a
-        >
+        <a href="#" class="btn btn-dark btn-delete">Confirm</a>
       </div>
     </div>
   </div>
