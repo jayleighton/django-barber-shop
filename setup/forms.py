@@ -28,4 +28,9 @@ class TradingDaysForm(forms.ModelForm):
     class Meta:
         model = TradingDays
         fields = ['day', 'open_time', 'close_time']
+
+        widgets = {
+            'open_time': forms.TimeInput(attrs={'type': 'time'}),
+            'close_time': forms.TimeInput(attrs={'type': 'time'}),
+        }
             

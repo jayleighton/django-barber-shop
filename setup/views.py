@@ -80,6 +80,28 @@ def add_trading_day(request):
             'form': form,
         })
     
+def edit_trading_days(request, day_id):
+    queryset = TradingDays.objects.all()
+    day_to_edit = get_object_or_404(queryset, id=day_id)
+    
+    if request.method == 'POST':
+        form = TradingDaysForm(data=request.POST, instance=day_to_edit)
+        if form.is_valid():
+            form.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Trading day update successfully'
+            )
+            return HttpResponseRedirect(reverse('show-trading-days'))   
+   
+    
+    form = TradingDaysForm(instance=day_to_edit)
+    if not request.user.is_staff:
+        raise PermissionDenied
+    else:
+        return render(request, 'setup/edit-trading-days.html', {
+            'form': form,
+        })
 
 
 
