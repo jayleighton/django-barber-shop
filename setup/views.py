@@ -48,9 +48,10 @@ def shop_info(request):
         return render(request, 'setup/shop_info.html', {
             'info_form': info_form,
         })
-    
+
+@login_required    
 def show_trading_days(request):
-    table_data = TradingDays.objects.order_by('id')
+    table_data = TradingDays.objects.order_by('day')
         
     if not request.user.is_staff:
         raise PermissionDenied
@@ -78,8 +79,10 @@ def add_trading_day(request):
     else:
         return render(request, 'setup/edit-trading-days.html', {
             'form': form,
+            'mode': 'add',
         })
-    
+
+@login_required    
 def edit_trading_days(request, day_id):
     queryset = TradingDays.objects.all()
     day_to_edit = get_object_or_404(queryset, id=day_id)
@@ -87,6 +90,7 @@ def edit_trading_days(request, day_id):
     if request.method == 'POST':
         form = TradingDaysForm(data=request.POST, instance=day_to_edit)
         if form.is_valid():
+            print('valid')
             form.save()
             messages.add_message(
                 request, messages.SUCCESS,
@@ -101,7 +105,20 @@ def edit_trading_days(request, day_id):
     else:
         return render(request, 'setup/edit-trading-days.html', {
             'form': form,
+            'mode': 'edit',
+            'day': day_id
         })
+    
+def delete_trading_day(request, day_id):
+    queryset = TradingDays.objects.all()
+    day_to_delete = get_object_or_404(queryset, id=day_id)
+    day_to_delete.delete()
+    messages.add_message(
+                request, messages.SUCCESS,
+                'Trading day deleted successfully'
+            )
+    
+    return HttpResponseRedirect(reverse('show-trading-days')) 
 
 
 

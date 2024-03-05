@@ -4,7 +4,12 @@
 <!-- Edit Trading days url -->
 {% url 'edit-trading-days' as edit_days_url %}
 <!-- Add Trading days url -->
-{% url 'add-trading-days' as add_days_url %} {% block content %}
+{% url 'add-trading-days' as add_days_url %}
+<!-- Delete Trading days url -->
+{% url 'delete-trading-day' as delete_day_url %}
+
+<!-- Start main content -->
+{% block content %}
 
 <div class="container bg-dark mt-5">
   <div class="row">
@@ -48,17 +53,26 @@
 
                   <td class="text-center">
                     <a
-                      class="btn btn-light btn-edit ms-5"
+                      class="btn btn-light btn-edit ms-1"
                       href="{% url 'edit-trading-days' data.id %}"
                       target="_blank"
                       ><i class="far fa-edit"></i
                     ></a>
-                    <a
+                    <!-- <a
+                        type="button"
                       class="btn btn-light btn-edit ms-5"
                       href="#"
                       target="_blank"
                       ><i class="fas fa-trash"></i
-                    ></a>
+                    ></a> -->
+                    <button
+                      type="button"
+                      class="btn btn-light btn-edit ms-5"
+                      data-bs-toggle="modal"
+                      data-bs-target="#confirmDelete-{{data.id}}"
+                    >
+                      <i class="fa fa-trash"></i>
+                    </button>
                   </td>
                 </tr>
                 {% endfor%}
@@ -71,4 +85,40 @@
   </div>
 </div>
 
-{% endblock %}
+<!-- Modal -->
+{% for data in table_data%}
+<div
+  class="modal fade"
+  id="confirmDelete-{{data.id}}"
+  tabindex="-1"
+  aria-labelledby="confirmDeleteLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteLabel">Delete?</h5>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete day: {{data.get_day_display}}?</p>
+        <p>This action cannot be reversed.</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-dark btn-edit"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+        <!-- <button action="" type="button" class="btn btn-primary">Delete</button> -->
+        <a
+          href="{% url 'delete-trading-day' data.id %}"
+          class="btn btn-dark btn-delete"
+          >Confirm</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %} {% endblock %}
