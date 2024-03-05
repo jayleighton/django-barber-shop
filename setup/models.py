@@ -32,3 +32,16 @@ class TradingDays(models.Model):
 
     def __str__(self):
         return f"{self.day} {self.open_time} - {self.close_time}"
+    
+class Service(models.Model):
+    """
+    Model to store services offered with pricing
+    """
+    name = models.CharField(max_length=200, unique=True)
+    description = models.TextField()
+    price = models.FloatField(default=0.00)
+    is_combo = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.name} - {self.description} {self.price}"
+

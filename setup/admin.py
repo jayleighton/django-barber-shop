@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
 from django.contrib.admin import ModelAdmin
-from .models import Info, TradingDays
+from .models import Info, TradingDays, Service
 
 @admin.register(Info)
 class ShopInfo(admin.ModelAdmin):
@@ -10,3 +10,8 @@ class ShopInfo(admin.ModelAdmin):
 @admin.register(TradingDays)
 class TradingDaysAdmin(admin.ModelAdmin):
     list_display = ('day', 'open_time', 'close_time')
+
+@admin.register(Service)
+class ServiceAdmin(SummernoteModelAdmin):
+    list_display = ('name','description','price', 'is_combo' )
+    summernote_fields = ('description',)
