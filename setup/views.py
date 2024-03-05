@@ -79,5 +79,7 @@ def add_trading_day(request):
         return render(request, 'setup/edit-trading-days.html', {
             'form': form,
         })
+    
+
 
 
