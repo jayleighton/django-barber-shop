@@ -2,48 +2,55 @@
 <!-- Load static content -->
 {% load static %} {% block content %}
 
-<div class="container">
+<div class="container bg-dark text-white mt-5">
   <div class="row">
-    <div class="col-md-6 offset-md-3 text-center mb-3 mt-3">
-      <h1>Available users:</h1>
-    </div>
-  </div>
-</div>
+    <div class="col-12 mt-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3 text-center mb-3 mt-3">
+            <h1>Available users:</h1>
+            <hr />
+          </div>
+        </div>
+      </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <table
-        class="table table-striped table-dark table-hover table-bordered mt-3"
-      >
-        <thead>
-          <tr>
-            <th scope="col">Username</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Is Staff?</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for user in data%}
-          <tr>
-            <td>{{ user.username }}</td>
-            <td>{{ user.first_name }}</td>
-            <td>{{ user.last_name }}</td>
-            <td>{{ user.is_staff }}</td>
-            <td class="text-center">
-              <a
-                class="btn btn-light btn-edit"
-                href="/admin/home/user/{{user.id}}/change"
-                target="_blank"
-                >Add as Staff</a
-              >
-            </td>
-          </tr>
-          {% endfor%}
-        </tbody>
-      </table>
+      <div class="container mb-5">
+        <div class="row">
+          <div class="col-12">
+            <table
+              class="table table-striped table-dark table-hover table-bordered mt-3"
+            >
+              <thead>
+                <tr>
+                  <th scope="col">Username</th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Is Staff?</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for user in data%}
+                <tr>
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.first_name }}</td>
+                  <td>{{ user.last_name }}</td>
+                  <td>{{ user.is_staff }}</td>
+                  <td class="text-center">
+                    <a
+                      class="btn btn-light btn-edit"
+                      href="/admin/home/user/{{user.id}}/change"
+                      target="_blank"
+                      ><i class="fas fa-plus-square"></i> Add as Staff</a
+                    >
+                  </td>
+                </tr>
+                {% endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
