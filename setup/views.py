@@ -186,4 +186,49 @@ def add_service(request):
             'form': form,
             'mode': 'add',
         })
+    
+
+@login_required
+def edit_service(request, service_id):
+    if not request.user.is_staff:
+        raise PermissionDenied
+    else:
+        queryset = Service.objects.all()
+        service_to_edit = get_object_or_404(queryset, id=service_id)
+        if request.method == 'POST':
+            form = ServiceForm(data=request.POST, instance=service_to_edit)
+            if form.is_valid():
+                form.save()
+                messages.add_message(
+                        request, messages.SUCCESS,
+                        'Service updated successfully'
+                    )
+                return HttpResponseRedirect(reverse('services')) 
+            else:
+                messages.add_message(
+                        request, messages.ERROR,
+                        'An error occurred during processing. Please try again'
+                    )
+                return HttpResponseRedirect(reverse('services')) 
+        
+        
+        form = ServiceForm(instance=service_to_edit)
+        return render(request, 'setup/edit-service.html', {
+            'form': form,
+        })
+
+@login_required
+def delete_service(request, service_id):
+    if not request.user.is_staff:
+        raise PermissionDenied
+    else:
+        queryset = Service.objects.all()
+        service_to_delete = get_object_or_404(queryset, id=service_id)
+        service_to_delete.delete()
+        messages.add_message(
+            request, messages.SUCCESS,
+            'Service deleted successfully'
+            )
+        return HttpResponseRedirect(reverse('services')) 
+        
 

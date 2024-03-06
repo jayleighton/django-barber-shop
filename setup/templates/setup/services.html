@@ -5,8 +5,10 @@
 {% url 'services' as services_url %}
 <!-- Add Service url -->
 {% url 'add-service' as add_service_url %}
-<!-- Delete Trading days url -->
-{% url 'delete-trading-day' as delete_day_url %}
+<!-- Edit Service url -->
+{% url 'edit-service' as edit %}
+<!-- Delete Service url -->
+{% url 'delete-service' as delete_service_url %}
 
 <!-- Start main content -->
 {% block content %}
@@ -56,7 +58,9 @@
                   <td>{{ item.updated_on }}</td>
 
                   <td class="text-center">
-                    <a class="btn btn-light btn-edit ms-1" href="#"
+                    <a
+                      class="btn btn-light btn-edit ms-1"
+                      href="{% url 'edit-service' item.id %}"
                       ><i class="far fa-edit"></i
                     ></a>
                     <button
@@ -106,7 +110,11 @@
           Cancel
         </button>
         <!-- <button action="" type="button" class="btn btn-primary">Delete</button> -->
-        <a href="#" class="btn btn-dark btn-delete">Confirm</a>
+        <a
+          href="{% url 'delete-service' item.id %}"
+          class="btn btn-dark btn-delete"
+          >Confirm</a
+        >
       </div>
     </div>
   </div>

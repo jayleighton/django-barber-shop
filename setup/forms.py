@@ -3,6 +3,8 @@ from home.models import User
 from .models import Info, TradingDays, Service
 from django_summernote.widgets import SummernoteWidget
 from cloudinary.forms import CloudinaryFileField
+from crispy_forms.helper import FormHelper, Layout
+from crispy_forms.layout import Fieldset, Div, HTML, Field
 
 class StaffForm(forms.ModelForm):
     image = CloudinaryFileField()
@@ -43,3 +45,7 @@ class ServiceForm(forms.ModelForm):
         widgets = {
             'description': SummernoteWidget(),
         }
+
+    
+        
+        
