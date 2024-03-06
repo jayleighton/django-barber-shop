@@ -12,7 +12,7 @@ urlpatterns = [
     path('services/add/', views.add_service, name='add-service'),
     path('services/delete/<int:service_id>/', views.delete_service, name='delete-service'),
     path('service/edit/<int:service_id>/', views.edit_service, name='edit-service'),
-    path('staff/', views.StaffList.as_view(), name='staff' ),
+    path('staff/', views.staff_list, name='staff'),
     path('staff/select/', views.select_staff, name='select-staff'),
     
     

@@ -7,12 +7,16 @@ from home.models import User
 from .models import Info,  TradingDays, Service
 from .forms import StaffForm, ShopInfoForm, TradingDaysForm, ServiceForm
 
-# Create your views here.
 
-
-class StaffList(generic.ListView):
-    queryset = User.objects.filter(is_staff=True, is_superuser=False).order_by('date_joined')
-    template_name = 'setup/staff.html'
+@login_required
+def staff_list(request):
+    if not request.user.is_staff:
+        raise PermissionDenied
+    else:
+        queryset = User.objects.filter(is_staff=True, is_superuser=False).order_by('date_joined')
+        return render(request, 'setup/staff.html', {
+            'user_list': queryset,
+        })
 
 
 @login_required
