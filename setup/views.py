@@ -17,12 +17,11 @@ class StaffList(generic.ListView):
 
 @login_required
 def select_staff(request):
-    queryset = User.objects.filter(is_staff=False, is_superuser=False)
-    print(request.user.is_staff)
     
     if not request.user.is_staff:
         raise PermissionDenied
     else:
+        queryset = User.objects.filter(is_staff=False, is_superuser=False)
         return render(request, 'setup/select_staff.html', {
             'data': queryset,
         })
@@ -32,7 +31,7 @@ def shop_info(request):
     queryset = Info.objects.order_by('id').first()
     
 
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_manager:
         updated_form = ShopInfoForm(data=request.POST, instance=queryset)
         if updated_form.is_valid():
             updated_form.save()
@@ -53,18 +52,18 @@ def shop_info(request):
 
 @login_required    
 def show_trading_days(request):
-    table_data = TradingDays.objects.order_by('day')
-        
+            
     if not request.user.is_staff:
         raise PermissionDenied
     else:
+        table_data = TradingDays.objects.order_by('day')
         return render(request, 'setup/trading_days.html', {
             'table_data': table_data,
         })
     
 @login_required
 def add_trading_day(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_manager:
         form = TradingDaysForm(data=request.POST)
         if form.is_valid():
             print("True")
@@ -97,7 +96,7 @@ def edit_trading_days(request, day_id):
     queryset = TradingDays.objects.all()
     day_to_edit = get_object_or_404(queryset, id=day_id)
     
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_manager:
         form = TradingDaysForm(data=request.POST, instance=day_to_edit)
         if form.is_valid():
             print('valid')
@@ -121,7 +120,7 @@ def edit_trading_days(request, day_id):
 
 @login_required    
 def delete_trading_day(request, day_id):
-    if not request.user.is_staff:
+    if not request.user.is_manager:
         raise PermissionDenied
     else:
         queryset = TradingDays.objects.all()
@@ -136,7 +135,7 @@ def delete_trading_day(request, day_id):
 
 @login_required
 def delete_user(request, user_id):
-    if not request.user.is_staff:
+    if not request.user.is_manager:
         raise PermissionDenied
     else:
         queryset = User.objects.all()
@@ -150,10 +149,11 @@ def delete_user(request, user_id):
 
 @login_required
 def show_services(request):
-    queryset = Service.objects.all().order_by('name')
+    
     if not request.user.is_staff:
         raise PermissionDenied
     else:
+        queryset = Service.objects.all().order_by('name')
         return render(request, 'setup/services.html', {
             'data': queryset,
         })
@@ -164,7 +164,7 @@ def add_service(request):
         raise PermissionDenied
     else:
 
-        if request.method == 'POST':
+        if request.method == 'POST' and request.user.is_manager:
             form = ServiceForm(data=request.POST)
             if form.is_valid():
                 form.save()
@@ -195,7 +195,7 @@ def edit_service(request, service_id):
     else:
         queryset = Service.objects.all()
         service_to_edit = get_object_or_404(queryset, id=service_id)
-        if request.method == 'POST':
+        if request.method == 'POST' and request.user.is_manager:
             form = ServiceForm(data=request.POST, instance=service_to_edit)
             if form.is_valid():
                 form.save()
@@ -219,7 +219,7 @@ def edit_service(request, service_id):
 
 @login_required
 def delete_service(request, service_id):
-    if not request.user.is_staff:
+    if not request.user.is_manager:
         raise PermissionDenied
     else:
         queryset = Service.objects.all()

@@ -20,11 +20,13 @@
             <div class="text-center mt-2 mb-2 text-white">
               <h1>Trading Days:</h1>
               <hr />
+              {% if user.is_manager %}
               <a
                 href="{% url 'add-trading-days' %}"
                 class="btn btn-lg btn-light btn-edit"
                 ><i class="fas fa-plus-square"></i> Add New</a
               >
+              {% endif %}
             </div>
           </div>
         </div>
@@ -41,7 +43,9 @@
                   <th scope="col">Day</th>
                   <th scope="col">Open Time</th>
                   <th scope="col">Closing Time</th>
+                  {% if user.is_manager %}
                   <th scope="col"></th>
+                  {% endif %}
                 </tr>
               </thead>
               <tbody>
@@ -50,20 +54,13 @@
                   <td>{{ data.get_day_display }}</td>
                   <td>{{ data.open_time }}</td>
                   <td>{{ data.close_time }}</td>
-
+                  {% if user.is_manager %}
                   <td class="text-center">
                     <a
                       class="btn btn-light btn-edit ms-1"
                       href="{% url 'edit-trading-days' data.id %}"
                       ><i class="far fa-edit"></i
                     ></a>
-                    <!-- <a
-                        type="button"
-                      class="btn btn-light btn-edit ms-5"
-                      href="#"
-                      target="_blank"
-                      ><i class="fas fa-trash"></i
-                    ></a> -->
                     <button
                       type="button"
                       class="btn btn-light btn-edit ms-5"
@@ -73,6 +70,7 @@
                       <i class="fa fa-trash"></i>
                     </button>
                   </td>
+                  {% endif %}
                 </tr>
                 {% endfor%}
               </tbody>

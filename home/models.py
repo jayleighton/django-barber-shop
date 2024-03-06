@@ -7,8 +7,9 @@ class User(AbstractUser):
     """
     Extend the User model to include fields required for the app
     """
-    description = models.TextField()
+    description = models.TextField(blank=True)
     image = CloudinaryField('image', default='placeholder')
+    is_manager = models.BooleanField(default=False)
     
 
     def __str__(self):

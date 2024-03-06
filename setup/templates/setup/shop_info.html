@@ -22,7 +22,7 @@
         <div class="row">
           <div class="col-md-8 offset-md-2 mt-3 mb-5">
             <form action="{% url 'shop-info' %}" method="post">
-              {{ info_form | crispy}} {% csrf_token %}
+              {{ info_form | crispy}} {% csrf_token %} {% if user.is_manager %}
               <div class="d-grid gap-2 col-6 mx-auto">
                 <button
                   class="btn btn-lg btn-light btn-edit mt-4"
@@ -31,6 +31,7 @@
                   Update
                 </button>
               </div>
+              {% endif %}
             </form>
           </div>
         </div>

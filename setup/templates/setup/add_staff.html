@@ -17,8 +17,7 @@
         action="{% url 'edit-staff' users_id%}"
       >
         <!-- {{ staff_form | crispy }} {% csrf_token %} -->
-        {{ staff_form.as_p }} {% csrf_token %}
-
+        {{ staff_form.as_p }} {% csrf_token %} {% if user.is_manager %}
         <button
           id="submitButton"
           type="submit"
@@ -26,6 +25,7 @@
         >
           Submit
         </button>
+        {% endif %}
       </form>
     </div>
   </div>

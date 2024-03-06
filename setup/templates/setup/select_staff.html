@@ -36,6 +36,7 @@
                   <td>{{ user.first_name }}</td>
                   <td>{{ user.last_name }}</td>
                   <td>{{ user.is_staff }}</td>
+                  {% if user.is_manager %}
                   <td class="text-center">
                     <a
                       class="btn btn-light btn-edit"
@@ -44,6 +45,7 @@
                       ><i class="fas fa-plus-square"></i> Add as Staff</a
                     >
                   </td>
+                  {% endif %}
                 </tr>
                 {% endfor%}
               </tbody>
