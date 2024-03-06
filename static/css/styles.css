@@ -92,6 +92,19 @@ p a i {
   background-color: red;
 }
 
+.btn-book {
+  padding: 5%;
+}
+
+.btn-book:hover {
+  background-color: #4e4feb;
+}
+
+.details-border {
+  border-bottom: 1px solid #040404;
+  border-left: 1px solid #040404;
+}
+
 .no-decoration {
   text-decoration: none;
 }
