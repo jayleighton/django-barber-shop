@@ -14,6 +14,8 @@
 {% url 'services' as services_url %}
 <!-- Avout url -->
 {% url 'about' as about_url %}
+<!-- Bookings url -->
+{% url 'bookings' as bookings_url %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -80,7 +82,11 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Bookings</a>
+              <a
+                class="nav-link {% if request.path == bookings_url%}active{% endif %}"
+                href="{% url 'bookings' %}"
+                >Bookings</a
+              >
             </li>
             {% if user.is_authenticated and user.is_staff %}
             <li class="nav-item dropdown">
