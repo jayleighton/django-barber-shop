@@ -17,13 +17,27 @@
 <section class="details">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-4 details-border text-center">
-        <h2>Address</h2>
-        <p>{{details.address1}}</p>
-        <p>{{details.address2}}</p>
-        <p>{{details.city}}</p>
-        <p>{{details.country}}</p>
-        <p>{{details.postal_code}}</p>
+      <div class="col-md-4 details-border">
+        <h2 class="text-center">
+          <i class="fas fa-address-card px-2"></i>Address
+        </h2>
+        <table class="mx-auto">
+          <tr>
+            <td>{{details.address1}}</td>
+          </tr>
+          <tr>
+            <td>{{details.address2}}</td>
+          </tr>
+          <tr>
+            <td>{{details.city}}</td>
+          </tr>
+          <tr>
+            <td>{{details.country}}</td>
+          </tr>
+          <tr>
+            <td>{{details.postal_code}}</td>
+          </tr>
+        </table>
       </div>
       <div class="col-md-4 text-center details-border">
         <h2>Contact us</h2>
@@ -36,6 +50,7 @@
 
         {% for day in days %}
         <p>
+          <i class="fas fa-clock px-2"></i>
           {{ day.get_day_display }}: {{ day.open_time }} - {{ day.close_time }}
         </p>
         {% endfor %}
@@ -99,7 +114,7 @@
             </tbody>
           </table>
         </div>
-        <div class="d-grid gap-2 col-6 mx-auto mt-5">
+        <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-3">
           <a class="btn btn-lg btn-light btn-edit" href="{% url 'about' %}"
             ><i class="fas fa-info-circle px-2"></i>More Info</a
           >

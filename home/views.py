@@ -32,9 +32,11 @@ class CustomSignUpView(SignupForm):
     template_name = 'signup.html'
 
 def about_page(request):
-
-    return render(request, 'home/about.html')
-
+    staff = User.objects.filter(is_staff=True, is_superuser=False).order_by('date_joined')
+   
+    return render(request, 'home/about.html', {
+        'staff_list': staff,
+    })
     
 
 

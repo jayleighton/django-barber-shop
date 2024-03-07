@@ -1,5 +1,102 @@
 {% extends "base.html" %} {% block content %}
 <!-- Load static content -->
 {% load static %}
-<h1>About us</h1>
+<section class="about-us">
+  <div class="container mt-2">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h1 class="text-center">About us</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <img
+          class="service-img"
+          src="{% static 'images/lina-verovaya-unsplash.jpg' %}"
+          alt=""
+        />
+      </div>
+      <div class="col-md-6">
+        <h2>Text</h2>
+        <p>
+          Bladez &amp; Fadez Barbershop was created for the modern man. We're a
+          locally owned, and operated family business.
+        </p>
+        <p>
+          Most hair salons are designed for women, leaving guys feeling like
+          they walked into the wrong place to get their haircut. <br />Bladez
+          &amp; Fadez Barbershop was created as a place for men or boys so they
+          too, would have a place where they feel most comfortable while getting
+          a haircut.
+        </p>
+        <p>
+          We brought back those old fashion barber shop services all guys enjoy;
+          straight razor shaves, relaxing scalp massage & shampoo with a hot
+          towel treatment. We also offer several other services guys such as
+          beard trimming and shaving.
+        </p>
+        <p>
+          We're always current with men's hairstyle trends as well as boys
+          hairstyle trends so you don't have to worry.
+        </p>
+        <p>
+          Bladez &amp; Fadez Barbershop specializes in Men's Haircuts, Boys
+          Haircuts, and many other barbershop services. <br />We cut men's hair
+          all day every day, and we're really good at it. <br />We know what
+          looks good on you, your son, your father, and your grandfather too. We
+          know the trends in men's hair. We'll make sure all the males in your
+          family look amazing!
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="staff">
+  <div class="container-fluid mt-3 bg-dark">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2 class="text-center text-white">Meet our staff:</h2>
+      </div>
+    </div>
+    <div class="row">
+      {% for member in staff_list%}
+      <div class="col-md-2">
+        <div class="card mb-4 h-100">
+          <div class="card-body d-flex flex-column">
+            <div class="image-container">
+              {% if "placeholder" in member.image.url %}
+              <img
+                class="card-img-top"
+                src="{% static 'images/nobody.jpg' %}"
+                alt="placeholder image"
+              />
+              {% else %}
+              <img
+                class="card-img-top scale"
+                src=" {{ member.image.url }}"
+                alt="{{ member.first_name }}"
+              />
+              {% endif %}
+            </div>
+
+            <h2 class="card-title">
+              {{ member.first_name }} {{ member.last_name }}
+            </h2>
+            <p class="card-text">{{ member.description|safe }}</p>
+            {% if user.is_manager %}
+            <div class="mt-auto text-center">
+              <a href="#" class="btn btn-lg btn-dark btn-edit"
+                ><i class="fas fa-calendar-check px-3"></i>Book now</a
+              >
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% if forloop.counter|divisibleby:6 %}
+    </div>
+    <div class="row mt-3">{% endif %} {% endfor %}</div>
+  </div>
+</section>
 {% endblock %}
