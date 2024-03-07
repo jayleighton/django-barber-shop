@@ -28,6 +28,9 @@ class CustomSignUpView(SignupForm):
     form_class = CustomSignUpForm
     template_name = 'signup.html'
 
+def about_page(request):
+
+    return render(request, 'home/about.html')
 
     
 
