@@ -33,7 +33,12 @@
         </a>
 
         <h3>Operating Times:</h3>
-        <p>Monday - Saturday: 08h00 until 18h00</p>
+
+        {% for day in days %}
+        <p>
+          {{ day.get_day_display }}: {{ day.open_time }} - {{ day.close_time }}
+        </p>
+        {% endfor %}
       </div>
       <div class="col-md-4 text-center details-border">
         <a href="#"

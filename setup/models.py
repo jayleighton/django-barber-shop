@@ -2,9 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from cloudinary.models import CloudinaryField
 
-DAYS = ((1, "Monday"), (2, "Tuesday"),(3, "Wednesday"),
-        (4, "Thursday"), (5, "Friday"), (6, "Saturday"),
-        (7, "Sunday"))
+
+
+DAYS = ((1, "Monday - Friday"), (2, "Saturday"),
+        (3, "Sunday"))
 
 
 class Info(models.Model):

@@ -10,14 +10,17 @@ from django.http import HttpResponseRedirect
 from allauth.account.forms import SignupForm
 from django.http import HttpResponseRedirect
 from .models import User
-from setup.models import Info
+from setup.models import Info, TradingDays
 from .forms import CustomSignUpForm
 
 
 def home_page(request):
     queryset = Info.objects.first()
+    days = TradingDays.objects.all().order_by('day')
+    
     return render(request, 'home/index.html', {
         'details': queryset,
+        'days': days
     })
 
 class CustomSignUpView(SignupForm):
