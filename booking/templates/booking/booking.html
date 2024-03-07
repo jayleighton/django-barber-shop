@@ -2,14 +2,111 @@
 <!-- Load static content -->
 {% load static %}
 <section class="about-us">
-  <div class="container mt-2">
+  <div class="container-fluid mt-2">
     <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <h1 class="text-center">Bookings</h1>
+      <div class="col-md-4 offset-md-4 g-0 service.img text-center">
+        <img
+          class="mx-auto"
+          src="{% static 'images/bandf_header_black.png' %}"
+          alt="Bladez and Fadez Logo"
+        />
+      </div>
+      <div class="row">
+        <div class="col-md-6 offset-md-3 mt-3">
+          <h1 class="text-center">Bookings</h1>
+          {% if not user.is_staff %}
+          <a href="#" class="btn btn-lg btn-dark btn-edit"
+            ><i class="fas fa-plus-square px-1"></i> Make another booking</a
+          >
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section></section>
-{% endblock %}
+<section>
+  <div class="container mt-2">
+    <div class="row">
+      <div class="col-12">
+        <table
+          class="table table-striped table-dark table-hover table-bordered mt-3 mb-5"
+        >
+          {% if data|length == 0 %}
+          <h5>No upcoming bookings</h5>
+          {% else %}
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Professional</th>
+              <th scope="col">Appointment time</th>
+              <th scope="col">Service</th>
+              <th scope="col">Price</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in data %}
+            <tr>
+              <td>
+                {{item.customer_id.first_name }} {{ item.customer_id.last_name}}
+              </td>
+              <td>{{item.staff_id.first_name}}</td>
+              <td>{{item.booking_start}}</td>
+              <td>{{item.service_id.name}}</td>
+              <td>{{item.service_id.price }}</td>
+              <td class="text-center">
+                <button
+                  type="button"
+                  class="btn btn-light btn-edit"
+                  data-bs-toggle="modal"
+                  data-bs-target="#confirmDelete-{{item.id}}"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+            {% endfor%} {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+{% for item in data %}
+<div
+  class="modal fade"
+  id="confirmDelete-{{item.id}}"
+  tabindex="-1"
+  aria-labelledby="confirmDeleteLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteLabel">Delete?</h5>
+      </div>
+      <div class="modal-body">
+        <p>
+          Are you sure you want to cancel this booking with:
+          {{item.staff_id.first_name}} ?
+        </p>
+        <p>This action cannot be reversed.</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-dark btn-edit"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+
+        <a href="#" class="btn btn-dark btn-delete">Confirm</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %} {% endblock %}
