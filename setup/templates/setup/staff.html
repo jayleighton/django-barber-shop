@@ -51,7 +51,7 @@
               <p class="card-text">{{ member.description|safe }}</p>
               {% if user.is_manager %}
               <div class="mt-auto">
-                <a href="/admin/home/user/{{member.id}}/change" class="btn btn-lg btn-light btn-edit" target="_blank"><i class="far fa-edit"></i></a>
+                <a href="{% url 'edit-staff' member.id %}" class="btn btn-lg btn-light btn-edit" ><i class="far fa-edit"></i></a>
                 <button
                       type="button"
                       class="btn btn-dark btn-delete ms-3"

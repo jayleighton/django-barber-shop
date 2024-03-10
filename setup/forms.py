@@ -7,25 +7,41 @@ from crispy_forms.helper import FormHelper, Layout
 from crispy_forms.layout import Fieldset, Div, HTML, Field
 
 class StaffForm(forms.ModelForm):
-    image = CloudinaryFileField()
+    image = forms.ImageField(widget=forms.FileInput)
+    username = forms.CharField(required=True, disabled=True)
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'is_staff', 'description', 'image']
+        fields = ['username', 'first_name', 'last_name', 'description', 'image']
+        read_only = ['username']
         widgets = {
             'description': SummernoteWidget(),
+            'image': CloudinaryFileField(),
         }
 
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.fields['image'].options={
-                'tags': 'new_image',
-            }
+        labels = {
+            'first_name': 'First Name',
+            'last_name': 'Last Name',
+            
+        }
+
+        
 
 class ShopInfoForm(forms.ModelForm):
     class Meta:
         model = Info
         fields = ['address1', 'address2','city','country','postal_code','telephone','email']
+
+        labels = {
+            'address1': 'Address Line 1',
+            'address2': 'Address Line 2',
+            'city': 'City',
+            'country': 'Country',
+            'postal_code': 'Postal Code',
+            'telephone': 'Telephone',
+            'email': 'Email',
+        }
+
 
 class TradingDaysForm(forms.ModelForm):
     class Meta:
@@ -44,6 +60,12 @@ class ServiceForm(forms.ModelForm):
         fields = ['name', 'description', 'price', 'is_combo']
         widgets = {
             'description': SummernoteWidget(),
+        }
+
+        labels = {
+            'name': 'Service Name',
+            'description': 'Service Description',
+            'is_combo': 'Combination Service',
         }
 
     

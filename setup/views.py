@@ -1,9 +1,11 @@
-from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, reverse
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
+from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from home.models import User
+import cloudinary.uploader
 from .models import Info,  TradingDays, Service
 from .forms import StaffForm, ShopInfoForm, TradingDaysForm, ServiceForm
 
@@ -28,6 +30,35 @@ def select_staff(request):
         queryset = User.objects.filter(is_staff=False, is_superuser=False)
         return render(request, 'setup/select_staff.html', {
             'data': queryset,
+        })
+
+@login_required
+def edit_staff(request, staff_id):
+    if not request.user.is_manager:
+        raise PermissionDenied
+    else:
+        queryset = User.objects.filter(is_staff=True)
+        staff_obj=get_object_or_404(queryset, id=staff_id)
+        if request.method == 'POST':
+            
+            form = StaffForm(data=request.POST, instance=staff_obj)
+            
+            if form.is_valid():
+                
+                record = form.save(commit=False)
+                if request.FILES:
+                    cloudinary_response = cloudinary.uploader.upload(request.FILES['image'])
+                    record.image = cloudinary_response['url']
+                record.save()
+                
+
+                return HttpResponseRedirect(reverse('staff'))
+            else:
+                print("False")
+
+        form = StaffForm(instance=staff_obj)
+        return render(request, 'setup/edit-staff.html', {
+            'staff_form': form,
         })
 
 @login_required

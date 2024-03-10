@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% load static %}
+<!-- Cloudinary -->
+{% load cloudinary %} {% cloudinary_includes %}
+<!-- Main content -->
+{% block content%}
+<!-- Crispy form tags -->
+{% load crispy_forms_tags %}
+<h1>Edit Staff</h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 text-center">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token%}
+        <!-- Load cloudinary -->
+        {% cloudinary photo.image %}
+        <!-- Load form -->
+        {{ staff_form | crispy }} {{form.media}}
+        <button type="submit" class="btn btn-lg btn-dark btn-edit">Save</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

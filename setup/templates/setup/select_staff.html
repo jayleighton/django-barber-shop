@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+<!-- Add staff url -->
+{% url 'add-staff' as add_staff_url%}
 <!-- Load static content -->
 {% load static %} {% block content %}
 
@@ -40,7 +42,7 @@
                   <td class="text-center">
                     <a
                       class="btn btn-light btn-edit"
-                      href="/admin/home/user/{{user.id}}/change"
+                      href="{% url 'add-staff' user.id%}"
                       target="_blank"
                       ><i class="fas fa-plus-square"></i> Add as Staff</a
                     >
