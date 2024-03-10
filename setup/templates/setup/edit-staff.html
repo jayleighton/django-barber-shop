@@ -2,7 +2,7 @@
 <!-- Cloudinary -->
 {% load cloudinary %} {% cloudinary_includes %}
 <!-- Add staff url -->
-{% url 'add-staff' as add_staff_url %}
+{% url 'add-staff' as add_staff_url %} {% load static %}
 
 <!-- Main content -->
 {% block content%}
@@ -29,4 +29,6 @@
   </div>
 </div>
 
+{% endblock %} {% block script %}
+<script src="{% static '/js/script.js'%}"></script>
 {% endblock %}

@@ -7,7 +7,7 @@ from django.contrib import messages
 from home.models import User
 import cloudinary.uploader
 from .models import Info,  TradingDays, Service
-from .forms import StaffForm, ShopInfoForm, TradingDaysForm, ServiceForm, AddStaffForm
+from .forms import StaffForm, ShopInfoForm, TradingDaysForm, ServiceForm
 
 
 @login_required
@@ -40,7 +40,7 @@ def add_staff(request, user_id):
         queryset = User.objects.filter(is_staff=False)
         user_obj = get_object_or_404(queryset, id=user_id)
         if request.method == 'POST':
-            form = AddStaffForm(data=request.POST, instance=user_obj)
+            form = StaffForm(data=request.POST, instance=user_obj)
             if form.is_valid():
                 record = form.save(commit=False)
                 if request.FILES:
@@ -60,7 +60,7 @@ def add_staff(request, user_id):
 
             return HttpResponseRedirect(reverse('staff')) 
 
-        form = AddStaffForm(instance=user_obj)
+        form = StaffForm(instance=user_obj)
         return render(request, 'setup/edit-staff.html', {
             'staff_form': form,
             'mode': 'add',

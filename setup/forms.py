@@ -9,26 +9,8 @@ from crispy_forms.layout import Fieldset, Div, HTML, Field
 class StaffForm(forms.ModelForm):
     image = forms.ImageField(widget=forms.FileInput)
     username = forms.CharField(required=True, disabled=True)
-
-    class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'description', 'image']
-        read_only = ['username']
-        widgets = {
-            'description': SummernoteWidget(),
-            'image': CloudinaryFileField(),
-        }
-
-        labels = {
-            'first_name': 'First Name',
-            'last_name': 'Last Name',
-            
-        }
-
-class AddStaffForm(forms.ModelForm):
-    image = forms.ImageField(widget=forms.FileInput)
-    username = forms.CharField(required=True, disabled=True)
-    
+    is_staff = forms.CheckboxInput(),
+    required=False
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'description', 'is_staff','image']
@@ -36,6 +18,8 @@ class AddStaffForm(forms.ModelForm):
         widgets = {
             'description': SummernoteWidget(),
             'image': CloudinaryFileField(),
+            
+
         }
 
         labels = {
@@ -44,7 +28,14 @@ class AddStaffForm(forms.ModelForm):
             'is_staff': 'Staff Member',
             
         }
-        
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            Field('is_staff', css_class="form-check-input", wrapper_class="form-check form-switch"),
+        )
+
 
 class ShopInfoForm(forms.ModelForm):
     class Meta:
@@ -74,6 +65,9 @@ class TradingDaysForm(forms.ModelForm):
 
 
 class ServiceForm(forms.ModelForm):
+    is_combo = forms.CheckboxInput(),
+    required=False
+    
     class Meta:
         model = Service
         fields = ['name', 'description', 'price', 'is_combo']
@@ -86,6 +80,13 @@ class ServiceForm(forms.ModelForm):
             'description': 'Service Description',
             'is_combo': 'Combination Service',
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            Field('is_combo', css_class="form-check-input", wrapper_class="form-check form-switch"),
+        )
 
     
         
