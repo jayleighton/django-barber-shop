@@ -1,6 +1,9 @@
 {% extends "base.html" %} {% load static %}
 <!-- Cloudinary -->
 {% load cloudinary %} {% cloudinary_includes %}
+<!-- Add staff url -->
+{% url 'add-staff' as add_staff_url %}
+
 <!-- Main content -->
 {% block content%}
 <!-- Crispy form tags -->
@@ -10,7 +13,11 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 text-center">
-      <form method="post" enctype="multipart/form-data">
+      <form
+        method="post"
+        enctype="multipart/form-data"
+        action="{% if mode == 'Add'%}{% url 'add-staff' staff_id %}{% endif %}"
+      >
         {% csrf_token%}
         <!-- Load cloudinary -->
         {% cloudinary photo.image %}

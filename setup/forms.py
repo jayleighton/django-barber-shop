@@ -25,6 +25,25 @@ class StaffForm(forms.ModelForm):
             
         }
 
+class AddStaffForm(forms.ModelForm):
+    image = forms.ImageField(widget=forms.FileInput)
+    username = forms.CharField(required=True, disabled=True)
+    
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'description', 'is_staff','image']
+        read_only = ['username']
+        widgets = {
+            'description': SummernoteWidget(),
+            'image': CloudinaryFileField(),
+        }
+
+        labels = {
+            'first_name': 'First Name',
+            'last_name': 'Last Name',
+            'is_staff': 'Staff Member',
+            
+        }
         
 
 class ShopInfoForm(forms.ModelForm):

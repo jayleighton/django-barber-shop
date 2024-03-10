@@ -7,7 +7,7 @@ from django.contrib import messages
 from home.models import User
 import cloudinary.uploader
 from .models import Info,  TradingDays, Service
-from .forms import StaffForm, ShopInfoForm, TradingDaysForm, ServiceForm
+from .forms import StaffForm, ShopInfoForm, TradingDaysForm, ServiceForm, AddStaffForm
 
 
 @login_required
@@ -33,6 +33,42 @@ def select_staff(request):
         })
 
 @login_required
+def add_staff(request, user_id):
+    if not request.user.is_manager:
+        raise PermissionDenied
+    else:
+        queryset = User.objects.filter(is_staff=False)
+        user_obj = get_object_or_404(queryset, id=user_id)
+        if request.method == 'POST':
+            form = AddStaffForm(data=request.POST, instance=user_obj)
+            if form.is_valid():
+                record = form.save(commit=False)
+                if request.FILES:
+                    cloudinary_response = cloudinary.uploader.upload(request.FILES['image'])
+                    record.image = cloudinary_response['url']
+                record.save()
+                messages.add_message(
+                request, messages.SUCCESS,
+                'New staff member updated successfully'
+            )
+            else:
+                messages.add_message(
+                request, messages.ERROR,
+                'There was an error during processing.'
+            )
+                
+
+            return HttpResponseRedirect(reverse('staff')) 
+
+        form = AddStaffForm(instance=user_obj)
+        return render(request, 'setup/edit-staff.html', {
+            'staff_form': form,
+            'mode': 'add',
+            'staff_id': user_id,
+        })
+
+
+@login_required
 def edit_staff(request, staff_id):
     if not request.user.is_manager:
         raise PermissionDenied
@@ -50,15 +86,24 @@ def edit_staff(request, staff_id):
                     cloudinary_response = cloudinary.uploader.upload(request.FILES['image'])
                     record.image = cloudinary_response['url']
                 record.save()
-                
+                messages.add_message(
+                    request, messages.SUCCESS,
+                    'New staff member updated successfully'
+                )
 
-                return HttpResponseRedirect(reverse('staff'))
+                
             else:
-                print("False")
+                messages.add_message(
+                    request, messages.ERROR,
+                    'There was an error during processing.'
+            )
+            return HttpResponseRedirect(reverse('staff'))
 
         form = StaffForm(instance=staff_obj)
         return render(request, 'setup/edit-staff.html', {
             'staff_form': form,
+            'mode': 'edit',
+            'staff_id': staff_id
         })
 
 @login_required
@@ -74,7 +119,7 @@ def shop_info(request):
                 request, messages.SUCCESS,
                 'Information updated successfully'
             )
-            return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('home'))
 
     info_form = ShopInfoForm(instance=queryset)
 
@@ -108,13 +153,13 @@ def add_trading_day(request):
                 request, messages.SUCCESS,
                 'Trading day added successfully'
             )
-            return HttpResponseRedirect(reverse('show-trading-days'))
+           
         else:
             messages.add_message(
                 request, messages.ERROR,
                 'Day already exists, please use edit function'
             )
-            return HttpResponseRedirect(reverse('show-trading-days')) 
+        return HttpResponseRedirect(reverse('show-trading-days')) 
     
     form = TradingDaysForm()
 
@@ -140,7 +185,7 @@ def edit_trading_days(request, day_id):
                 request, messages.SUCCESS,
                 'Trading day update successfully'
             )
-            return HttpResponseRedirect(reverse('show-trading-days'))   
+        return HttpResponseRedirect(reverse('show-trading-days'))   
    
     
     form = TradingDaysForm(instance=day_to_edit)
