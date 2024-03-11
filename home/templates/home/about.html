@@ -84,7 +84,7 @@
               {{ member.first_name }} {{ member.last_name }}
             </h2>
             <p class="card-text">{{ member.description|safe }}</p>
-            {% if user.is_manager %}
+            {% if not user.is_staff %}
             <div class="mt-auto text-center">
               <a href="#" class="btn btn-lg btn-dark btn-edit"
                 ><i class="fas fa-calendar-check px-3"></i>Book now</a
