@@ -3,4 +3,76 @@
 {% load static %}
 
 <!-- Start main content -->
-{% block content %} {{ user_data.username }} {% endblock %}
+{% block content %} {% if user_data %} {% endif %}
+
+<div class="container bg-dark text-white mt-4 mb-3">
+  <section class="title">
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-6 offset-md-3 text-center">
+          <h1>User Profile:</h1>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="profile-details">
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <table class="table table-dark">
+            <tbody>
+              <tr>
+                <td>Username</td>
+                <td>:</td>
+                <td class="px-4">{{ user_data.username }}</td>
+              </tr>
+
+              <tr>
+                <td>First Name</td>
+                <td>:</td>
+                <td class="px-4">{{ user_data.first_name }}</td>
+              </tr>
+              <tr>
+                <td>Last Name</td>
+                <td>:</td>
+                <td class="px-4">{{ user_data.last_name }}</td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>:</td>
+                <td class="px-4">{{ user_data.email }}</td>
+              </tr>
+              <tr>
+                <td>Profile Image</td>
+                <td>:</td>
+                {% if "placeholder" in user_data.image.url %}
+                <td class="px-4">
+                  <img
+                    class="card-img-top"
+                    src="{% static 'images/nobody.jpg' %}"
+                    alt="placeholder image"
+                  />
+                </td>
+                {% else %}
+                <td class="px-4">
+                  <img
+                    class="profile-img"
+                    src=" {{ user_data.image.url }}"
+                    alt="{{ user_data.first_name }}"
+                  />
+                </td>
+                {% endif %}
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-center d-grid gap-2 col-6 mx-auto mt-2 mb-3">
+            <a href="" class="btn btn-lg btn-light btn-edit">Edit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{%endblock %}
