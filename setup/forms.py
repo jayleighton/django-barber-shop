@@ -37,6 +37,25 @@ class StaffForm(forms.ModelForm):
         )
 
 
+class ProfileForm(forms.ModelForm):
+    image = forms.ImageField(widget=forms.FileInput)
+        
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'image']
+        widgets = {
+            'image': CloudinaryFileField(),
+        }
+
+        labels = {
+            'first_name': 'First Name',
+            'last_name': 'Last Name',
+            'email': 'Email Address',          
+        }
+        
+
+
+
 class ShopInfoForm(forms.ModelForm):
     class Meta:
         model = Info

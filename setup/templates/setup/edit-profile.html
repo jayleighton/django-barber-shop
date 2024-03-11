@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+<!-- Load static content -->
+{% load static %}
+<!-- Crispy form tags -->
+{% load crispy_forms_tags %}
+<!-- Start main content -->
+{% block content %} {% if user_data %} {% endif %}
+
+<div class="container bg-dark text-white mt-4 mb-3">
+  <section class="title">
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-6 offset-md-3 text-center">
+          <h1>Edit Profile: {{username_value}}</h1>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="edit-form">
+    <form action="" method="post" class="mt4" enctype="multipart/form-data">
+      {% csrf_token %} {{ form | crispy}}
+      <div class="text-center d-grid gap-2 col-4 mx-auto mt-5 mb-5">
+        <button class="btn btn-lg btn-light btn-edit" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+  </section>
+</div>
+{%endblock %}

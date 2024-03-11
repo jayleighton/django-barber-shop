@@ -1,14 +1,14 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from home.models import User
 import cloudinary.uploader
 from .models import Info,  TradingDays, Service
-from .forms import StaffForm, ShopInfoForm, TradingDaysForm, ServiceForm
+from .forms import StaffForm, ShopInfoForm, TradingDaysForm, ServiceForm, ProfileForm
 
 @login_required    
 def show_profile(request, user_id):
@@ -18,6 +18,39 @@ def show_profile(request, user_id):
     return render(request, 'setup/show-profile.html', {
         'user_data': user_obj
     })
+
+@login_required
+def edit_profile(request, user_id):
+    queryset = User.objects.all()
+    user_obj = get_object_or_404(queryset, id=user_id)
+    if request.method == 'POST':
+            form = ProfileForm(data=request.POST, instance=user_obj)
+            if form.is_valid():
+                record = form.save(commit=False)
+                if request.FILES:
+                    cloudinary_response = cloudinary.uploader.upload(request.FILES['image'])
+                    record.image = cloudinary_response['url']
+                record.save()
+                messages.add_message(
+                request, messages.SUCCESS,
+                'User profile updated successfully'
+            )
+            else:
+                messages.add_message(
+                request, messages.ERROR,
+                'There was an error during processing.'
+            )
+                
+
+            return HttpResponseRedirect(reverse('my-profile', args=[user_id]))
+
+
+    user_form =ProfileForm(instance=user_obj)
+    return render(request, 'setup/edit-profile.html', {
+        'form': user_form,
+        'username_value': user_obj.username,
+    })
+
 
 class StaffList(LoginRequiredMixin, UserPassesTestMixin, ListView):
     template_name = 'setup/staff.html'
