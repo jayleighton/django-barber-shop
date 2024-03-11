@@ -36,7 +36,9 @@
               
               {% endif %} {{ form | crispy }} {% csrf_token %}
               {% if user.is_manager %}
+              <div class="text-center d-grid gap-2 col-4 mx-auto mt-5 mb-3">
               <button class="btn btn-light btn-edit">Submit</button>
+            </div>
               {% endif %}
             </form>
           </div>
