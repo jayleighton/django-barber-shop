@@ -26,17 +26,6 @@ class StaffList(LoginRequiredMixin, UserPassesTestMixin, ListView):
 
 
 @login_required
-def staff_list(request):
-    if not request.user.is_staff:
-        raise PermissionDenied
-    else:
-        queryset = User.objects.filter(is_staff=True, is_superuser=False).order_by('date_joined')
-        return render(request, 'setup/staff.html', {
-            'user_list': queryset,
-        })
-
-
-@login_required
 def select_staff(request):
     
     if not request.user.is_staff:
@@ -145,16 +134,18 @@ def shop_info(request):
             'info_form': info_form,
         })
 
-@login_required    
-def show_trading_days(request):
-            
-    if not request.user.is_staff:
-        raise PermissionDenied
-    else:
-        table_data = TradingDays.objects.order_by('day')
-        return render(request, 'setup/trading_days.html', {
-            'table_data': table_data,
-        })
+class TradingDaysList(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    template_name = 'setup/trading_days.html'
+    context_object_name = 'table_data'
+    model = TradingDays
+
+    def get_queryset(self, **kwargs):
+        queryset = self.model.objects.order_by('day')
+        return queryset
+    
+    def test_func(self) -> bool | None:
+        return self.request.user.is_staff or self.request.user.is_manager
+
     
 @login_required
 def add_trading_day(request):
@@ -242,16 +233,15 @@ def delete_user(request, user_id):
                 )
         return HttpResponseRedirect(reverse('staff')) 
 
-@login_required
-def show_services(request):
-    
-    if not request.user.is_staff:
-        raise PermissionDenied
-    else:
-        queryset = Service.objects.all().order_by('name')
-        return render(request, 'setup/services.html', {
-            'data': queryset,
-        })
+
+class ServiceList(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    template_name = 'setup/services.html'
+    context_object_name = 'data'
+    model = Service
+
+    def test_func(self) -> bool | None:
+        return self.request.user.is_staff or self.request.user.is_manager
+
 
 @login_required
 def add_service(request):
