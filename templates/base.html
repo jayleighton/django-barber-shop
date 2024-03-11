@@ -1,5 +1,6 @@
 {% load static %} {% url 'home' as home_url %}
-
+<!-- Profile url -->
+{% url 'my-profile' as myprofile_url %}
 <!-- Account urls -->
 {% url 'account_login' as login_url %} {% url 'account_logout' as logout_url %}
 <!-- Staff urls -->
@@ -10,12 +11,14 @@
 {% url 'shop-info' as shop_info_url %}
 <!-- Trading days urls -->
 {% url 'show-trading-days' as trading_days_url %}
+
 <!-- Services url -->
 {% url 'services' as services_url %}
 <!-- Avout url -->
 {% url 'about' as about_url %}
 <!-- Bookings url -->
 {% url 'bookings' as bookings_url %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -88,7 +91,16 @@
                 >Bookings</a
               >
             </li>
-            {% if user.is_authenticated and user.is_staff %}
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == myprofile_url %}active{% endif %}"
+                aria-current="page"
+                href="{% url 'my-profile' user.id %}"
+                >Profile {{ myprofile_url }}</a
+              >
+            </li>
+            {% endif %} {% if user.is_authenticated and user.is_staff %}
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -128,6 +140,7 @@
               </ul>
             </li>
             {% endif %} {% if user.is_authenticated %}
+
             <li class="nav-item">
               <a
                 class="nav-link {% if request.path == logout_url %}active{% endif %}"

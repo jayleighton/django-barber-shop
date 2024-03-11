@@ -10,6 +10,14 @@ import cloudinary.uploader
 from .models import Info,  TradingDays, Service
 from .forms import StaffForm, ShopInfoForm, TradingDaysForm, ServiceForm
 
+@login_required    
+def show_profile(request, user_id):
+    queryset = User.objects.all()
+    user_obj = get_object_or_404(queryset, id=user_id)
+    print(user_obj)
+    return render(request, 'setup/show-profile.html', {
+        'user_data': user_obj
+    })
 
 class StaffList(LoginRequiredMixin, UserPassesTestMixin, ListView):
     template_name = 'setup/staff.html'
@@ -316,4 +324,7 @@ def delete_service(request, service_id):
             )
         return HttpResponseRedirect(reverse('services')) 
         
+
+
+
 
