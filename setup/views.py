@@ -1,13 +1,28 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
-from django.views import generic
+from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from home.models import User
 import cloudinary.uploader
 from .models import Info,  TradingDays, Service
 from .forms import StaffForm, ShopInfoForm, TradingDaysForm, ServiceForm
+
+
+class StaffList(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    template_name = 'setup/staff.html'
+    context_object_name = 'user_list'
+    model = User
+
+    def get_queryset(self, **kwargs):
+        queryset = self.model.objects.filter(is_staff=True, is_superuser=False).order_by('date_joined')
+        return queryset
+    
+    def test_func(self) -> bool | None:
+        return self.request.user.is_staff or self.request.user.is_manager 
+
 
 
 @login_required
