@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404, reverse
-from django.views import generic
+from typing import Any
+from django.db.models.query import QuerySet
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
+from django.views.generic import ListView
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
-from django.views.generic import (
-    TemplateView, CreateView, UpdateView, DeleteView, ListView, View
-)
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from setup.models import Info, TradingDays
@@ -13,31 +14,40 @@ from datetime import datetime, timedelta
 from .models import Booking
 from .forms import BookingForm
 
-def bookings(request):
-    today = datetime.now()
-    context = {}
-    if not request.user.is_staff:    
-        bookings = Booking.objects.filter(
-            booking_start__gte=today.date(),
-            customer_id=request.user.id).order_by('booking_start')
-        context['data'] = bookings
-    elif request.user.is_manager:
-        # Change to date + 7
-        week_date = today + timedelta(days=15)
-        bookings = Booking.objects.filter(
-            booking_start__range=(today.date(), week_date.date())).order_by(
-                'booking_start')
-        context['data'] = bookings
-    elif request.user.is_staff:
-        bookings = Booking.objects.filter(booking_start__startswith=today.date(),
-                                          staff_id=request.user.id).order_by(
-                                              'booking_start')
-        context['data'] = bookings
-    else:
-        context['data'] = ''
 
+class BookingList(LoginRequiredMixin, ListView):
+    template_name = 'booking/booking.html'
+    context_object_name = 'data'
+    model = Booking
 
-    return render(request, 'booking/booking.html', context)
+    def get_queryset(self, **kwargs):
+        queryset = ''
+        today = datetime.now()
+        if not self.request.user.is_staff:
+            queryset = self.model.objects.filter(
+                    booking_start__gte=today.date(),
+                    customer_id=self.request.user.id).order_by(
+                        'booking_start'
+                    )
+            return queryset
+        elif self.request.user.is_manager:
+            week_date = today + timedelta(days=7)
+            queryset = self.model.objects.filter(
+                booking_start__range=(today.date(), week_date.date())).order_by(
+                    'booking_start'
+                )
+            return queryset
+        elif self.request.user.is_staff:
+            queryset = self.model.objects.filter(
+                booking_start__startswith=today.date(),
+                staff_id=self.request.user.id).order_by(
+                    'booking_start'
+                )
+            return queryset
+        else:
+            return None
+        
+    
 
 @login_required
 def delete_booking(request, booking_id):
