@@ -3,13 +3,8 @@
 {% load static %}
 <!-- Crispy forms -->
 {% load crispy_forms_tags %}
-<!-- Load summernote -->
 
-
-<!-- Add Services url -->
-{% url 'add-service' as add_service_url %}
-<!-- Add Trading days url -->
-{% url 'add-trading-days' as add_days_url %} {% block content %} {{ day }}
+ {% block content %} {{ day }}
 
 <div class="container bg-dark mt-5">
   <div class="row">

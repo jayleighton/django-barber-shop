@@ -2,7 +2,7 @@
 <!-- Cloudinary -->
 {% load cloudinary %} {% cloudinary_includes %}
 <!-- Add staff url -->
-{% url 'add-staff' as add_staff_url %} {% load static %}
+{% load static %}
 
 <!-- Main content -->
 {% block content%}
@@ -18,11 +18,7 @@
         enctype="multipart/form-data"
         action="{% if mode == 'Add'%}{% url 'add-staff' staff_id %}{% endif %}"
       >
-        {% csrf_token%}
-        <!-- Load cloudinary -->
-        {% cloudinary photo.image %}
-        <!-- Load form -->
-        {{ staff_form | crispy }} {{form.media}}
+        {% csrf_token%} {{ staff_form | crispy }} {{form.media}}
         <button type="submit" class="btn btn-lg btn-dark btn-edit">Save</button>
       </form>
     </div>
