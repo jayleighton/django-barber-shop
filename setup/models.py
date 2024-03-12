@@ -7,6 +7,12 @@ from cloudinary.models import CloudinaryField
 DAYS = ((1, "Monday - Friday"), (2, "Saturday"),
         (3, "Sunday"))
 
+AGES = (
+    (0, 'Adult'),
+    (1, 'Student'),
+    (2, 'Child'),
+)
+
 
 class Info(models.Model):
     """
@@ -44,7 +50,8 @@ class Service(models.Model):
     is_combo = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+    price_age = models.IntegerField(choices=AGES, default=0)
 
     def __str__(self):
-        return f"{self.name} - {self.description} {self.price}"
+        return f"{self.name} - {self.price_age} - {self.price}"
 

@@ -89,7 +89,7 @@ class ServiceForm(forms.ModelForm):
     
     class Meta:
         model = Service
-        fields = ['name', 'description', 'price', 'is_combo']
+        fields = ['name', 'description', 'price_age','price', 'is_combo']
         widgets = {
             'description': SummernoteWidget(),
         }
@@ -98,6 +98,7 @@ class ServiceForm(forms.ModelForm):
             'name': 'Service Name',
             'description': 'Service Description',
             'is_combo': 'Combination Service',
+            'price_age': 'Age Category'
         }
 
     def __init__(self, *args, **kwargs):
