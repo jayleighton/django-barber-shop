@@ -192,5 +192,10 @@ class SaveBooking(View):
             booking_amount = selected_service.price
         )
 
+        messages.add_message(
+                self.request, messages.SUCCESS,
+                'Booking completed successfully.'
+            )
+
         return HttpResponseRedirect(reverse('bookings'))
 
