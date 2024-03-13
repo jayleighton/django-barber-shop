@@ -51,7 +51,11 @@
         {% for day in days %}
         <p>
           <i class="fas fa-clock px-2"></i>
-          {{ day.get_day_display }}: {{ day.open_time }} - {{ day.close_time }}
+          {% if day.open_time|slugify == day.close_time|slugify %}
+            {{ day.get_day_display }}: Closed
+          {% else %}
+            {{ day.get_day_display }}: {{ day.open_time }} - {{ day.close_time }}
+          {% endif %}
         </p>
         {% endfor %}
       </div>

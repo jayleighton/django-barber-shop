@@ -45,12 +45,15 @@ class Service(models.Model):
     Model to store services offered with pricing
     """
     name = models.CharField(max_length=200, unique=True)
-    description = models.TextField()
+    description = models.CharField(max_length=100)
     price = models.FloatField(default=0.00)
     is_combo = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     price_age = models.IntegerField(choices=AGES, default=0)
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         return f"{self.name} - {self.price_age} - {self.price}"

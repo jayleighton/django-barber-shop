@@ -90,9 +90,9 @@ class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
         fields = ['name', 'description', 'price_age','price', 'is_combo']
-        widgets = {
-            'description': SummernoteWidget(),
-        }
+        # widgets = {
+        #     'description': SummernoteWidget(),
+        # }
 
         labels = {
             'name': 'Service Name',
