@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block content %}
+<h1>Make Booking</h1>
+
+<form method="GET">
+  <label for="staff-member">Staff Member:</label>
+  <select name="staff-member" id="staff-member">
+    {% for member in staff %}
+    
+    <option value="{{member.id}}"
+    {% if selected_staff == member.id|slugify %}selected{% endif %}>
+      {{member.first_name}} {{member.last_name}}
+    </option>
+
+    {% endfor %}
+  </select>
+  <label for="select-date">Appointment Date:</label>
+  <input type="date" value="{% now "Y-m-d" %}" id="select-date"
+  name="booking-date" />
+  <button type="submit" class="btn btn-lg btn-edit">Check Availability</button>
+</form>
+
+{% if available_time %}
+<form action="">
+  <label for="time-select">Appointment Times</label>
+  <select name="time-select" id="time-select">
+    {% for time in available_time %}
+    <option value="{{time}}">{{time}}</option>
+    {% endfor %}
+  </select>
+
+  <label for=""></label>
+  <select name="service-select" id="service-select">
+  {% for item in service_list %}
+    <option value="{{ item.id }}">{{ item.description | safe}}</option>
+  {% endfor %}
+</select>
+</form>
+<p>{{time}}</p>
+{% endif %} {% endblock %}

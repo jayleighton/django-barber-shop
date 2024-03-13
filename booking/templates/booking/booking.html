@@ -17,7 +17,7 @@
         <div class="col-md-6 offset-md-3 mt-3 text-center">
           <h1>Bookings</h1>
           {% if not user.is_staff %}
-          <a href="{% url 'add-booking' %}" class="btn btn-lg btn-dark btn-edit"
+          <a href="{% url 'new-booking' %}" class="btn btn-lg btn-dark btn-edit"
             ><i class="fas fa-plus-square px-1"></i> Make booking</a
           >
           {% endif %}
