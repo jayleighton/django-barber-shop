@@ -1,4 +1,5 @@
 {% extends "base.html" %} {% block content %}
+{% load static %}
 <div class="container bg-dark text-white mt-3 mb-3">
   <div class="row">
     <div class="col-md-4 offset-md-4 text-center">
@@ -12,11 +13,13 @@
       <form method="GET">
         <div class="mb-3">
           <label for="staff-member" class="form-label">Staff Member:</label>
-          <select name="staff-member" id="staff-member" class="select form-select">
+          <select name="staff-member" id="staff-member" class="select form-select no-changes-allowed"
+          onchange="toggleDisplayOnChange()">
             {% for member in staff %}
             
-            <option value="{{member.id}}"
-            {% if selected_staff == member.id|slugify %}selected{% endif %}>
+            <option value="{{member.id}}" class="no-changes-allowed"
+            {% if selected_staff == member.id|slugify %}selected{% endif %}
+            >
               {{member.first_name}} {{member.last_name}}
             </option>
 
@@ -27,22 +30,32 @@
           <label for="select-date" class="form-label">Appointment Date:</label>
           {% if date_to_book %}
           <input class="form-control" type="date" value="{{date_to_book}}" id="select-date"
-          name="booking-date" />
+          name="booking-date" onchange="toggleDisplayOnChange()"/>
           {% else %}
           <input class="form-control" type="date" value="{% now "Y-m-d" %}" id="select-date"
           name="booking-date" />
           {% endif %}
           <div class="text-center d-grid gap-2 col-4 mx-auto mt-4 mb-4">
-            <button type="submit" class="btn btn-light btn-lg btn-edit">Check Availability</button>
+            <button type="submit" class="btn btn-light btn-lg btn-edit"
+            onclick="toggleDisplayOnClick()">Check Availability</button>
           </div>
       </div>
       </form>
     </div>
   </div>
 
-  <div class="row">
+ 
+
+  <div id="div-booking-selections" class="row">
     <div class="col-md-6 offset-md-3 mb-3">
       {% if available_time %}
+      {% if 'None' in available_time %}
+      <div class="mt-5 mb-5">
+        <h3 class="text-center"><strong>No available times for selection.</strong></h3>
+      </div>
+      {% else %}
+      
+      
       <div class="mb-3 mt-1 text-center">
         <form action="{% url 'save-booking' %}" method="POST">
           {% csrf_token %}
@@ -70,4 +83,8 @@
     </div>
   </div>
 </div>
-{% endif %} {% endblock %}
+{% endif %} {% endif %} {% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/bookings.js' %}"></script>
+{% endblock %}

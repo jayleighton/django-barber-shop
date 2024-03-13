@@ -88,20 +88,23 @@ class MakeBooking(LoginRequiredMixin, TemplateView):
         services = Service.objects.all().order_by('name')
         context = {}
         if staff_member_id is not None and selected_date is not None:
-            available_times = get_appointment_times(staff_member_id, selected_date)
-            if len(available_times) == 0:
-                available_times = ['None']
-            # professional_selected = User.objects.filter(id=staff_member_id)
-            context = {
-                'available_time': available_times,
-                'staff': professional,
-                'selected_staff': staff_member_id,
-                'service_list': services,
-                'date_to_book': selected_date,
-            }
+            
+                available_times = get_appointment_times(staff_member_id, selected_date)
+                if len(available_times) == 0:
+                    available_times = ['None']
+                # professional_selected = User.objects.filter(id=staff_member_id)
+                context = {
+                    'available_time': available_times,
+                    'staff': professional,
+                    'selected_staff': staff_member_id,
+                    'service_list': services,
+                    'date_to_book': selected_date,
+                }
 
-            return context
+                return context
+            
 
+                
         
         if staff_member_id is not None:
             context = {
@@ -123,6 +126,10 @@ def get_appointment_times(staff_id, appointment_date):
     sel_month = int(appointment_date.split("-")[1])
     sel_day = int(appointment_date.split("-")[2])
     appoint_date = datetime(sel_year, sel_month, sel_day)
+
+    if appoint_date.date() < datetime.today().date():
+        return []
+
     day_number = appoint_date.weekday()
 
     # Get the operating hours from TradingDays

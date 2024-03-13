@@ -103,3 +103,7 @@ p a i {
 .profile-img {
   width: 100%;
 }
+
+.hide-component {
+  display: None;
+}
