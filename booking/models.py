@@ -4,6 +4,9 @@ from setup.models import Service, Info, TradingDays
 
 # Create your models here.
 class Booking(models.Model):
+    """
+    Model for managing booked appointments
+    """
     customer_id = models.ForeignKey(User, 
                                     on_delete=models.CASCADE,
                                     related_name='user_id')

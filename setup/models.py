@@ -2,11 +2,11 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from cloudinary.models import CloudinaryField
 
-
-
+# Choices for days
 DAYS = ((1, "Monday - Friday"), (2, "Saturday"),
         (3, "Sunday"))
 
+# choices for ages
 AGES = (
     (0, 'Adult'),
     (1, 'Student'),
@@ -16,7 +16,7 @@ AGES = (
 
 class Info(models.Model):
     """
-    Model to store shop information
+    Model for shop information
     """
     address1 = models.CharField(max_length=80, blank=True)
     address2 = models.CharField(max_length=80, blank=True)
@@ -31,7 +31,7 @@ class Info(models.Model):
     
 class TradingDays(models.Model):
     """
-    Model to store days and times that store operates
+    Model for trading days and operating hours
     """
     day = models.IntegerField(choices=DAYS, unique=True)
     open_time = models.TimeField()
@@ -42,7 +42,7 @@ class TradingDays(models.Model):
     
 class Service(models.Model):
     """
-    Model to store services offered with pricing
+    Model for services offered with pricing
     """
     name = models.CharField(max_length=200, unique=True)
     description = models.CharField(max_length=100)
@@ -56,5 +56,5 @@ class Service(models.Model):
         ordering = ['name']
 
     def __str__(self):
-        return f"{self.name} - {self.price_age} - {self.price}"
+        return f"{self.description} - \u20ac{self.price:.2f}"
 
