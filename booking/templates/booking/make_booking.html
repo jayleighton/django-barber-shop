@@ -56,30 +56,31 @@
       {% else %}
       
       
-      <div class="mb-3 mt-1 text-center">
+      
         <form action="{% url 'save-booking' %}" method="POST">
-          {% csrf_token %}
-          <input type="text" name="staff-to-book" id="staff-to-book" value="{{selected_staff}}" hidden>
-          <input type="date" name="booking-date" id="booking-date" value="{{date_to_book}}" hidden>
-          <label class="form-label" for="time-select">Appointment Times</label>
-          <select name="time-select" id="time-select" class="select form-select">
-            {% for time in available_time %}
-            <option value="{{time}}">{{time}}</option>
-            {% endfor %}
-          </select>
-      </div>
-      <div class="mb-3 mt-1 text-center">
-        <label class="form-label" for="service-select">Service:</label>
-        <select name="service-select" id="service-select" class="select form-select">
-          {% for item in service_list %}
-            <option value="{{ item.id }}">{{ item }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div class="text-center d-grid gap-2 col-4 mx-auto mt-4 mb-4">
-        <button type="submit" class="btn btn-light btn-lg btn-edit">Book now</button>
-      </div>
-      </form>
+          <div class="mb-3 mt-1 text-center">
+            {% csrf_token %}
+            <input type="text" name="staff-to-book" id="staff-to-book" value="{{selected_staff}}" hidden>
+            <input type="date" name="booking-date" id="booking-date" value="{{date_to_book}}" hidden>
+            <label class="form-label" for="time-select">Appointment Times</label>
+            <select name="time-select" id="time-select" class="select form-select">
+              {% for time in available_time %}
+              <option value="{{time}}">{{time}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3 mt-1 text-center">
+            <label class="form-label" for="service-select">Service:</label>
+            <select name="service-select" id="service-select" class="select form-select">
+              {% for item in service_list %}
+                <option value="{{ item.id }}">{{ item }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="text-center d-grid gap-2 col-4 mx-auto mt-4 mb-4">
+            <button type="submit" class="btn btn-light btn-lg btn-edit">Book now</button>
+          </div>
+        </form>
     </div>
   </div>
 </div>
