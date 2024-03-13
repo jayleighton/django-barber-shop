@@ -1,8 +1,9 @@
 {% extends "base.html" %} {% block content %}
 <div class="container bg-dark text-white mt-3 mb-3">
   <div class="row">
-    <div class="col-md-6 offset-md-3 text-center">
+    <div class="col-md-4 offset-md-4 text-center">
       <h1>Make Booking</h1>
+      <hr>
     </div>
   </div>
   
@@ -24,8 +25,13 @@
         </div>
         <div class="mb-3">
           <label for="select-date" class="form-label">Appointment Date:</label>
+          {% if date_to_book %}
+          <input class="form-control" type="date" value="{{date_to_book}}" id="select-date"
+          name="booking-date" />
+          {% else %}
           <input class="form-control" type="date" value="{% now "Y-m-d" %}" id="select-date"
           name="booking-date" />
+          {% endif %}
           <div class="text-center d-grid gap-2 col-4 mx-auto mt-4 mb-4">
             <button type="submit" class="btn btn-light btn-lg btn-edit">Check Availability</button>
           </div>
@@ -38,7 +44,10 @@
     <div class="col-md-6 offset-md-3 mb-3">
       {% if available_time %}
       <div class="mb-3 mt-1 text-center">
-        <form action="">
+        <form action="{% url 'save-booking' %}" method="POST">
+          {% csrf_token %}
+          <input type="text" name="staff-to-book" id="staff-to-book" value="{{selected_staff}}" hidden>
+          <input type="date" name="booking-date" id="booking-date" value="{{date_to_book}}" hidden>
           <label class="form-label" for="time-select">Appointment Times</label>
           <select name="time-select" id="time-select" class="select form-select">
             {% for time in available_time %}

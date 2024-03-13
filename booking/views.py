@@ -2,7 +2,7 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, View
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -14,6 +14,7 @@ from datetime import datetime, timedelta
 from .models import Booking
 from .forms import BookingForm
 
+APPOINTMENT_DURATION=30
 
 class BookingList(LoginRequiredMixin, ListView):
     template_name = 'booking/booking.html'
@@ -96,6 +97,7 @@ class MakeBooking(LoginRequiredMixin, TemplateView):
                 'staff': professional,
                 'selected_staff': staff_member_id,
                 'service_list': services,
+                'date_to_book': selected_date,
             }
 
             return context
@@ -163,4 +165,32 @@ def get_appointment_times(staff_id, appointment_date):
     
     return appoint_calc_times
 
+
+class SaveBooking(View):
+    def post(self, *args, **kwargs):
+        selected_date = self.request.POST['booking-date']
+        staff_id = self.request.POST['staff-to-book']
+        selected_time = self.request.POST['time-select'].split(" - ")
+        service_id = self.request.POST['service-select']
+        appointment_start_date = datetime(
+            int(selected_date.split("-")[0]),
+            int(selected_date.split("-")[1]),
+            int(selected_date.split("-")[2]),
+            int(selected_time[0].split(":")[0]),
+            int(selected_time[0].split(":")[1])
+        )
+        appointment_end_date = appointment_start_date + timedelta(minutes=APPOINTMENT_DURATION)
+        selected_service = Service.objects.filter(id=service_id).first()
+        staff_member = User.objects.filter(id=staff_id).first()
+        
+        booking, created = Booking.objects.update_or_create(
+            customer_id = self.request.user,
+            staff_id = staff_member,
+            service_id = selected_service,
+            booking_start = appointment_start_date,
+            booking_end = appointment_end_date,
+            booking_amount = selected_service.price
+        )
+
+        return HttpResponseRedirect(reverse('bookings'))
 
