@@ -1,5 +1,6 @@
+/* General styles */
 body {
-  /* font-family: "Oswald", sans-serif; */
+  
   font-family: "Lato", sans-serif;
   background-color: #fffbf5;
 }
@@ -13,6 +14,22 @@ p a i {
   color: white;
 }
 
+.hide-component {
+  display: None;
+}
+
+/* Account page styling */
+.auth-container {
+  background-color: #040404;
+  opacity: 0.8;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4%;
+  min-width: 40vw;
+}
+
+
+/* Index page styling */
 .main-bg {
   background-image: url("/static/images/main_bg.jpg");
   background-repeat: no-repeat;
@@ -27,7 +44,7 @@ p a i {
   margin-right: auto;
 }
 
-*/ .details-border {
+.details-border {
   border-left: 2px solid #040404;
   border-bottom: 2px solid #040404;
 }
@@ -36,23 +53,7 @@ p a i {
   font-size: 2rem;
 }
 
-.auth-container {
-  background-color: #040404;
-  opacity: 0.8;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 4%;
-  min-width: 40vw;
-
-  /* height: 50vh; */
-}
-
-.full-logo {
-  display: block;
-  margin: auto;
-  opacity: 1;
-}
-
+/* Button styling and effects*/
 .btn-signup:hover {
   color: #fff;
   background-color: #040404;
@@ -94,8 +95,8 @@ p a i {
   text-decoration: none;
 }
 
+/* Image styling */
 .service-img {
-  /* height: 70%; */
   width: 100%;
   margin-left: 0;
 }
@@ -104,6 +105,10 @@ p a i {
   width: 100%;
 }
 
-.hide-component {
-  display: None;
+.full-logo {
+  display: block;
+  margin: auto;
+  opacity: 1;
 }
+
+

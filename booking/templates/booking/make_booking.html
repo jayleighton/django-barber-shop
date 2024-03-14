@@ -50,7 +50,7 @@
 
  
   <!-- Container for available times and services -->
-  <div id="div-booking-selections" class="row">
+  <div class="row">
     <div class="col-md-6 offset-md-3 mb-3">
       {% if available_time %}
       {% if 'None' in available_time %}
@@ -60,7 +60,7 @@
       </div>
       {% else %}
       <!-- Display for available time slots -->
-        <form action="{% url 'save-booking' %}" method="POST">
+        <form action="{% url 'save-booking' %}" method="POST" id="div-booking-selections" >
           <div class="mb-3 mt-1 text-center">
             {% csrf_token %}
             <input type="text" name="staff-to-book" id="staff-to-book" value="{{selected_staff}}" hidden>
@@ -89,7 +89,8 @@
     </div>
   </div>
 </div>
-{% endif %} {% endif %} {% endblock %}
+{% endif %} {% endif %} 
+{% endblock %}
 
 {% block script %}
   <!-- Script for showing and hiding post form -->
