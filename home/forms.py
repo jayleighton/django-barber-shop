@@ -1,13 +1,11 @@
 from django import forms
 from allauth.account.forms import SignupForm
-from django.contrib.auth import password_validation
 from .models import User
 
 class CustomSignUpForm(SignupForm):
     first_name = forms.CharField(max_length=25, label='First Name')
     last_name = forms.CharField(max_length=25, label='Last Name')
-    
-    
+     
 
     def save(self, request):
         user = super(CustomSignUpForm, self).save(request)

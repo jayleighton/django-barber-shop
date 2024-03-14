@@ -3,6 +3,7 @@
 {% block content %}
 <!-- Load static content -->
 {% load static %} {% load humanize %}
+<!-- Section for heading information -->
 <section class="booking-header">
   <div class="container mt-2">
     <div class="row">
@@ -18,6 +19,7 @@
           <h1>Bookings</h1>
           {% if not user.is_staff %}
           <a href="{% url 'new-booking' %}" class="btn btn-lg btn-dark btn-edit"
+          aria-label="Click to make a new booking"
             ><i class="fas fa-plus-square px-1"></i> Make booking</a
           >
           {% endif %}
@@ -27,6 +29,7 @@
   </div>
 </section>
 
+<!-- Section for list of bookings -->
 <section class="booking-list">
   <div class="container mt-2">
     <div class="row">
@@ -64,6 +67,7 @@
                   class="btn btn-light btn-edit"
                   data-bs-toggle="modal"
                   data-bs-target="#confirmDelete-{{item.id}}"
+                  aria-label="Clcik to delete booking"
                 >
                   <i class="fa fa-trash"></i>
                 </button>
@@ -103,6 +107,7 @@
           type="button"
           class="btn btn-dark btn-edit"
           data-bs-dismiss="modal"
+          aria-label="Click to abort the deletion"
         >
           Cancel
         </button>
@@ -110,6 +115,7 @@
         <a
           href="{% url 'delete-booking' item.id %}"
           class="btn btn-dark btn-delete"
+          aria-label="Click to confirm deletion"
           >Confirm</a
         >
       </div>

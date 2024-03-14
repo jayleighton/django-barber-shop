@@ -1,12 +1,15 @@
 from django import forms
-from home.models import User
-from .models import Info, TradingDays, Service
 from django_summernote.widgets import SummernoteWidget
 from cloudinary.forms import CloudinaryFileField
 from crispy_forms.helper import FormHelper, Layout
-from crispy_forms.layout import Fieldset, Div, HTML, Field
+from crispy_forms.layout import Field
+from home.models import User
+from .models import Info, TradingDays, Service
 
 class StaffForm(forms.ModelForm):
+    """
+    Form for staff user information from the database
+    """
     image = forms.ImageField(widget=forms.FileInput)
     username = forms.CharField(required=True, disabled=True)
     is_staff = forms.CheckboxInput(),
@@ -38,6 +41,9 @@ class StaffForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
+    """
+    Form for user information 
+    """
     image = forms.ImageField(widget=forms.FileInput)
         
     class Meta:
@@ -54,9 +60,10 @@ class ProfileForm(forms.ModelForm):
         }
         
 
-
-
 class ShopInfoForm(forms.ModelForm):
+    """
+    Form for shop information
+    """
     class Meta:
         model = Info
         fields = ['address1', 'address2','city','country','postal_code','telephone','email']
@@ -73,6 +80,9 @@ class ShopInfoForm(forms.ModelForm):
 
 
 class TradingDaysForm(forms.ModelForm):
+    """
+    Form for trading day and operating hours information
+    """
     class Meta:
         model = TradingDays
         fields = ['day', 'open_time', 'close_time']
@@ -84,6 +94,9 @@ class TradingDaysForm(forms.ModelForm):
 
 
 class ServiceForm(forms.ModelForm):
+    """
+    Form for service information
+    """
     is_combo = forms.CheckboxInput(),
     required=False
     

@@ -5,8 +5,10 @@
 <!-- Start main content -->
 {% block content %} {% if user_data %} {% endif %}
 
+<!-- Container for main content -->
 <div class="container bg-dark text-white mt-4 mb-3">
   <section class="title">
+    <!-- Container for headings -->
     <div class="container mt-4">
       <div class="row">
         <div class="col-md-6 offset-md-3 text-center">
@@ -17,6 +19,7 @@
     </div>
   </section>
 
+  <!-- Profile details section -->
   <section class="profile-details">
     <div class="container mt-4">
       <div class="row">
@@ -71,6 +74,7 @@
             <a
               href="{% url 'edit-profile' user_data.id %}"
               class="btn btn-lg btn-light btn-edit"
+              aria-label="Click to edit {{user_data.first_name}}"
               >Edit</a
             >
           </div>

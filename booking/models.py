@@ -1,6 +1,6 @@
 from django.db import models
 from home.models import User
-from setup.models import Service, Info, TradingDays
+from setup.models import Service
 
 # Create your models here.
 class Booking(models.Model):

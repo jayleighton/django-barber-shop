@@ -5,19 +5,23 @@
 <!-- Start main content -->
 {% block content %}
 
+<!-- Content container -->
 <div class="container bg-dark mt-5">
   <div class="row">
     <div class="col-12">
+      <!-- Heading container -->
       <div class="container bg-dark mt-5">
         <div class="row">
           <div class="col-md-4 offset-md-4">
             <div class="text-center mt-2 mb-2 text-white">
               <h1>Services:</h1>
               <hr />
+              <!-- Check user profile -->
               {% if user.is_manager %}
               <a
                 href="{% url 'add-service' %}"
                 class="btn btn-lg btn-light btn-edit"
+                aria-label="Click to add a new service"
                 ><i class="fas fa-plus-square px-1"></i> Add New</a
               >
               {% endif %}
@@ -25,7 +29,7 @@
           </div>
         </div>
       </div>
-
+      <!-- Table container -->
       <div class="container">
         <div class="row">
           <div class="col-12">
@@ -63,6 +67,7 @@
                     <a
                       class="btn btn-light btn-edit ms-1"
                       href="{% url 'edit-service' item.id %}"
+                      aria-label="Click to edit {{item.name}} service"
                       ><i class="far fa-edit"></i
                     ></a>
                     <button
@@ -70,6 +75,7 @@
                       class="btn btn-light btn-edit ms-5"
                       data-bs-toggle="modal"
                       data-bs-target="#confirmDelete-{{item.id}}"
+                      aria-label="Click to delete {{item.name}} service"
                     >
                       <i class="fa fa-trash"></i>
                     </button>
@@ -109,6 +115,7 @@
           type="button"
           class="btn btn-dark btn-edit"
           data-bs-dismiss="modal"
+          aria-label="Click to cancel deleting the service"
         >
           Cancel
         </button>
@@ -116,6 +123,7 @@
         <a
           href="{% url 'delete-service' item.id %}"
           class="btn btn-dark btn-delete"
+          aria-label="Click to confirm the deletion"
           >Confirm</a
         >
       </div>

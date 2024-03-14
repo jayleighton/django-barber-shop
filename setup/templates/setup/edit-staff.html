@@ -11,7 +11,7 @@
 
 <div class="container text-center bg-dark mt-3 mb-3 text-white">
   <h1>Edit Staff</h1>
-
+  <!-- Form container -->
   <div class="container bg-dark text-white">
     <div class="row">
       <div class="col-md-6 offset-md-3 text-center">
@@ -22,7 +22,8 @@
         >
           {% csrf_token%} {{ staff_form | crispy }} {{form.media}}
           <div class="text-center d-grid gap-2 col-4 mx-auto mt-5 mb-5">
-            <button type="submit" class="btn btn-lg btn-light btn-edit">
+            <button type="submit" class="btn btn-lg btn-light btn-edit"
+            aria-label="Click to save changes">
               Save
             </button>
           </div>

@@ -6,7 +6,7 @@
 
 {% block content %}
 
-
+<!-- Container for headings -->
 <div class="container-fluid bg-dark">
   <div class="row">
     <div class="col-md-4 offset-md-4">
@@ -14,7 +14,9 @@
         <h1>Bladez &amp; Fadez Staff</h1>
         <hr>
         {% if user.is_manager %}
-        <a href="{% url 'select-staff' %}" class="btn btn-lg btn-light btn-edit"><i class="fas fa-plus-square px-1"></i>  Add New</a>
+        <a href="{% url 'select-staff' %}" class="btn btn-lg btn-light btn-edit"
+        aria-label="Click to add new staff member"
+        ><i class="fas fa-plus-square px-1"></i>  Add New</a>
         {% endif %}
     </div>
     </div>
@@ -22,12 +24,13 @@
 </div>
 
 
-
+<!-- Container for details -->
 <div class="container-fluid bg-dark">
   <div class="row">
     
     <div class="col-12 mt-3 left">
       <div class="row">
+        <!-- Process user list -->
         {% for member in user_list %}
         <div class="col-md-3">
           <div class="card mb-4 h-100">
@@ -50,12 +53,15 @@
               <p class="card-text">{{ member.description|safe }}</p>
               {% if user.is_manager %}
               <div class="mt-auto">
-                <a href="{% url 'edit-staff' member.id %}" class="btn btn-lg btn-light btn-edit" ><i class="far fa-edit"></i></a>
+                <a href="{% url 'edit-staff' member.id %}" class="btn btn-lg btn-light btn-edit" 
+                aria-label="Click to edit {{member.first_name}}"
+                ><i class="far fa-edit"></i></a>
                 <button
                       type="button"
                       class="btn btn-dark btn-delete ms-3"
                       data-bs-toggle="modal"
                       data-bs-target="#confirmDelete-{{member.id}}"
+                      aria-label="Click to delete {{member.first_name}}"
                     >
                       <i class="fa fa-trash"></i>
                     </button>
@@ -96,12 +102,14 @@
           type="button"
           class="btn btn-dark btn-edit"
           data-bs-dismiss="modal"
+          aria-label="Click to abort the deletion"
         >
           Cancel
         </button>
         <a
           href="{% url 'delete-user' member.id %}"
           class="btn btn-dark btn-delete"
+          aria-label="Click to confirm the deletion"
           >Confirm</a
         >
       </div>

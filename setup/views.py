@@ -1,17 +1,22 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
-from django.views.generic import ListView, UpdateView
+from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
-from home.models import User
 import cloudinary.uploader
+from home.models import User
 from .models import Info,  TradingDays, Service
 from .forms import StaffForm, ShopInfoForm, TradingDaysForm, ServiceForm, ProfileForm
 
+
 @login_required    
 def show_profile(request, user_id):
+    """
+    View to show the current user profile.
+    The view receives the current user id to return data from the model
+    """
     queryset = User.objects.all()
     user_obj = get_object_or_404(queryset, id=user_id)
     print(user_obj)
@@ -19,14 +24,21 @@ def show_profile(request, user_id):
         'user_data': user_obj
     })
 
+
 @login_required
 def edit_profile(request, user_id):
+    """
+    View to edit the profile of the current user.
+    The view receives the user id of the current user to present data.
+    The view uses a POST request to process an update in the Model
+    """
     queryset = User.objects.all()
     user_obj = get_object_or_404(queryset, id=user_id)
     if request.method == 'POST':
             form = ProfileForm(data=request.POST, instance=user_obj)
             if form.is_valid():
                 record = form.save(commit=False)
+                # Upload files to Cloudinary
                 if request.FILES:
                     cloudinary_response = cloudinary.uploader.upload(request.FILES['image'])
                     record.image = cloudinary_response['url']
@@ -36,15 +48,15 @@ def edit_profile(request, user_id):
                 'User profile updated successfully'
             )
             else:
+                # Form is not valid. Show error message
                 messages.add_message(
                 request, messages.ERROR,
                 'There was an error during processing.'
             )
                 
-
             return HttpResponseRedirect(reverse('my-profile', args=[user_id]))
 
-
+    # Data for GET request
     user_form =ProfileForm(instance=user_obj)
     return render(request, 'setup/edit-profile.html', {
         'form': user_form,
@@ -53,21 +65,34 @@ def edit_profile(request, user_id):
 
 
 class StaffList(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    """
+    View to display a list of staff members which are employed at the shop
+    """
     template_name = 'setup/staff.html'
     context_object_name = 'user_list'
     model = User
 
     def get_queryset(self, **kwargs):
+        """
+        Function returns only staff members that are available for bookings
+        """
         queryset = self.model.objects.filter(is_staff=True, is_superuser=False).order_by('date_joined')
         return queryset
     
     def test_func(self) -> bool | None:
+        """
+        Test the request user is a staff member or manager
+        """
         return self.request.user.is_staff or self.request.user.is_manager 
 
 
 
 @login_required
 def select_staff(request):
+    """
+    View to select users that are not staff members for the manager to update when creating
+    new staff members
+    """
     
     if not request.user.is_staff:
         raise PermissionDenied
@@ -79,6 +104,10 @@ def select_staff(request):
 
 @login_required
 def add_staff(request, user_id):
+    """
+    View to update a user as a staff member in the Model.
+    The view receives the user id that needs to be displayed or updated.
+    """
     if not request.user.is_manager:
         raise PermissionDenied
     else:
@@ -115,6 +144,13 @@ def add_staff(request, user_id):
 
 @login_required
 def edit_staff(request, staff_id):
+    """
+    View to edit and existing staff member.
+    Only the manager has access to this view.
+    The view receives the staff user id as a parameter to identify the record
+    that needs to be updated.
+    
+    """
     if not request.user.is_manager:
         raise PermissionDenied
     else:
@@ -153,6 +189,9 @@ def edit_staff(request, staff_id):
 
 @login_required
 def shop_info(request):
+    """
+    View to display and update shop information stored in the database
+    """
     queryset = Info.objects.order_by('id').first()
     
 
@@ -176,20 +215,32 @@ def shop_info(request):
         })
 
 class TradingDaysList(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    """
+    View to display the trading days and operating times stored in the database.
+    """
     template_name = 'setup/trading_days.html'
     context_object_name = 'table_data'
     model = TradingDays
 
     def get_queryset(self, **kwargs):
+        """
+        Function to return the records from the database ordered by the 'day' field
+        """
         queryset = self.model.objects.order_by('day')
         return queryset
     
     def test_func(self) -> bool | None:
+        """
+        Function to verify that the current user is a staff member or the shop manager
+        """
         return self.request.user.is_staff or self.request.user.is_manager
 
     
 @login_required
 def add_trading_day(request):
+    """
+    View to add tradings days to the model
+    """
     if request.method == 'POST' and request.user.is_manager:
         form = TradingDaysForm(data=request.POST)
         if form.is_valid():
@@ -220,6 +271,9 @@ def add_trading_day(request):
 
 @login_required    
 def edit_trading_days(request, day_id):
+    """
+    View to edit existing trading days stored in the database
+    """
     queryset = TradingDays.objects.all()
     day_to_edit = get_object_or_404(queryset, id=day_id)
     
@@ -247,6 +301,10 @@ def edit_trading_days(request, day_id):
 
 @login_required    
 def delete_trading_day(request, day_id):
+    """
+    View to delete a trading day record from the database.
+    The view receives the id of the record to be deleted.
+    """
     if not request.user.is_manager:
         raise PermissionDenied
     else:
@@ -262,6 +320,11 @@ def delete_trading_day(request, day_id):
 
 @login_required
 def delete_user(request, user_id):
+    """
+    View to delete users from the user model.
+    The view receives the user id as a parameter to identify the correct record to delete.
+    Access is only provided to the store manager
+    """
     if not request.user.is_manager:
         raise PermissionDenied
     else:
@@ -276,16 +339,25 @@ def delete_user(request, user_id):
 
 
 class ServiceList(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    """
+    View to display the available services
+    """
     template_name = 'setup/services.html'
     context_object_name = 'data'
     model = Service
 
     def test_func(self) -> bool | None:
+        """
+        Function to verify the request user is a staff member or the store manager
+        """
         return self.request.user.is_staff or self.request.user.is_manager
 
 
 @login_required
 def add_service(request):
+    """
+    View to add a new service to the database.
+    """
     if not request.user.is_staff:
         raise PermissionDenied
     else:
@@ -316,6 +388,10 @@ def add_service(request):
 
 @login_required
 def edit_service(request, service_id):
+    """
+    View to edit an existing service in the database.
+    The view receives the id of the record to be updated.
+    """
     if not request.user.is_staff:
         raise PermissionDenied
     else:
@@ -345,6 +421,10 @@ def edit_service(request, service_id):
 
 @login_required
 def delete_service(request, service_id):
+    """
+    View to delete an existing service from the database.
+    The view receives the id of the service to be deleted.
+    """
     if not request.user.is_manager:
         raise PermissionDenied
     else:

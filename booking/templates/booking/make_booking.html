@@ -1,6 +1,8 @@
 {% extends "base.html" %} {% block content %}
 {% load static %}
+<!-- Container for main content -->
 <div class="container bg-dark text-white mt-3 mb-3">
+  <!-- Container for title -->
   <div class="row">
     <div class="col-md-4 offset-md-4 text-center">
       <h1>Make Booking</h1>
@@ -8,6 +10,7 @@
     </div>
   </div>
   
+  <!-- Container for intial capturing of staff member and date -->
   <div class="row">
     <div class="col-md-6 offset-md-3 mt-3 mb-1 text-center">
       <form method="GET">
@@ -37,6 +40,7 @@
           {% endif %}
           <div class="text-center d-grid gap-2 col-4 mx-auto mt-4 mb-4">
             <button type="submit" class="btn btn-light btn-lg btn-edit"
+            aria-label="Click to check for available times"
             onclick="toggleDisplayOnClick()">Check Availability</button>
           </div>
       </div>
@@ -45,18 +49,17 @@
   </div>
 
  
-
+  <!-- Container for available times and services -->
   <div id="div-booking-selections" class="row">
     <div class="col-md-6 offset-md-3 mb-3">
       {% if available_time %}
       {% if 'None' in available_time %}
+      <!-- Display for no available time slots -->
       <div class="mt-5 mb-5">
         <h3 class="text-center"><strong>No available times for selection.</strong></h3>
       </div>
       {% else %}
-      
-      
-      
+      <!-- Display for available time slots -->
         <form action="{% url 'save-booking' %}" method="POST">
           <div class="mb-3 mt-1 text-center">
             {% csrf_token %}
@@ -78,7 +81,9 @@
             </select>
           </div>
           <div class="text-center d-grid gap-2 col-4 mx-auto mt-4 mb-4">
-            <button type="submit" class="btn btn-light btn-lg btn-edit">Book now</button>
+            <button type="submit" class="btn btn-light btn-lg btn-edit"
+            aria-label="Click to submit booking"
+            >Book now</button>
           </div>
         </form>
     </div>
@@ -87,5 +92,6 @@
 {% endif %} {% endif %} {% endblock %}
 
 {% block script %}
+  <!-- Script for showing and hiding post form -->
   <script src="{% static 'js/bookings.js' %}"></script>
 {% endblock %}

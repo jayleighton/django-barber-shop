@@ -4,9 +4,11 @@
 <!-- Crispy forms -->
 {% load crispy_forms_tags %} {% block content %}
 
+<!-- Container for main content -->
 <div class="container bg-dark mt-5">
   <div class="row">
     <div class="col-12">
+      <!-- Container for headings -->
       <div class="container bg-dark mt-3 mb-3">
         <div class="row">
           <div class="col-md-4 offset-md-4">
@@ -17,7 +19,7 @@
           </div>
         </div>
       </div>
-
+      <!-- Form container -->
       <div class="container bg-dark text-white mt-3 mb-3">
         <div class="row">
           <div class="col-md-8 offset-md-2 mt-3 mb-5">
@@ -27,6 +29,7 @@
                 <button
                   class="btn btn-lg btn-light btn-edit mt-4"
                   type="submit"
+                  aria-label="Click to save changes"
                 >
                   Update
                 </button>

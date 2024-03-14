@@ -1,16 +1,13 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 from django_summernote.admin import SummernoteModelAdmin
-from django.contrib.admin import ModelAdmin
-from .forms import CustomSignUpForm
 from .models import User
 
  
-# Register your models here.
-# admin.site.register(User, UserAdmin)
-
 @admin.register(User)
 class UserAdmin(SummernoteModelAdmin):
+    """
+    Class for the User Admin panel
+    """
     list_display = ('username','first_name','last_name', 'email' )
     summernote_fields = ('description',)
 

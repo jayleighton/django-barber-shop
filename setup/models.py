@@ -1,6 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-from cloudinary.models import CloudinaryField
+
 
 # Choices for days
 DAYS = ((1, "Monday - Friday"), (2, "Saturday"),

@@ -1,20 +1,14 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views import generic
-from django.core.exceptions import PermissionDenied
-from django.contrib.auth.decorators import login_required
-from django.views.generic import (
-    TemplateView, CreateView, UpdateView, DeleteView, ListView, View
-)
-from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from allauth.account.forms import SignupForm
-from django.http import HttpResponseRedirect
-from .models import User
 from setup.models import Info, TradingDays
+from .models import User
 from .forms import CustomSignUpForm
 
 
 def home_page(request):
+    """
+    Receives a GET request and renders the index page
+    """
     queryset = Info.objects.first()
     days = TradingDays.objects.all().order_by('day')
     
@@ -25,13 +19,16 @@ def home_page(request):
 
 class CustomSignUpView(SignupForm):
     """
-    View for custom signup as a customer or partner
+    View for custom signup as a user
     """
     model = User
     form_class = CustomSignUpForm
     template_name = 'signup.html'
 
 def about_page(request):
+    """
+    View to render the about page to the user
+    """
     staff = User.objects.filter(is_staff=True, is_superuser=False).order_by('date_joined')
    
     return render(request, 'home/about.html', {

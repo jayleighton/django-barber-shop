@@ -1,19 +1,24 @@
 {% extends "base.html" %} {% block content %}
 <!-- Load static content -->
 {% load static %}
-<div class="container-fluid">
-  <div class="row">
-    <!-- Blog Entries Column -->
-    <div class="col-12 left main-bg">
-      <img
-        class="logo mt-5 mb-3"
-        src="{% static 'images/logo.webp'%}"
-        alt="Bladez and fadez logo"
-      />
+
+<!-- Heading section for page -->
+<section class="heading">
+  <div class="container-fluid">
+    <div class="row">
+      
+      <div class="col-12 left main-bg">
+        <img
+          class="logo mt-5 mb-3"
+          src="{% static 'images/logo.webp'%}"
+          alt="Bladez and fadez logo"
+        />
+      </div>
     </div>
   </div>
-</div>
+</section>
 
+<!-- Detail section containing shop and contact details -->
 <section class="details">
   <div class="container-fluid">
     <div class="row">
@@ -42,12 +47,13 @@
       <div class="col-md-4 text-center details-border pt-2">
         <h2>Contact us</h2>
         <p><i class="fas fa-phone"> </i> {{details.telephone}}</p>
-        <a class="no-decoration" href="mailto:{{details.email}}">
+        <a class="no-decoration" href="mailto:{{details.email}}" 
+        aria-label="Click to send email">
           <p><i class="fas fa-envelope"> </i> {{details.email}}</p>
         </a>
 
-        <h3>Operating Times:</h3>
-
+        <h2>Operating Times:</h2>
+        <!-- Process the trading days from the context -->
         {% for day in days %}
         <p>
           <i class="fas fa-clock px-2"></i>
@@ -61,8 +67,9 @@
       </div>
       <div class="col-md-4 text-center details-border">
         <a href="{% url 'new-booking' %}"
-          ><button
+        ><button
             class="btn btn-lg btn-dark btn-book mt-2 mt-md-5 mb-2 mb-md-5"
+            aria-label="Click to make a new booking"
           >
             <i class="fas fa-plus-square px-1"></i>
             Book Now
@@ -73,9 +80,8 @@
   </div>
 </section>
 
+<!-- Section for available services -->
 <section class="services">
-  <!-- <h2 class="text-center mb-0 pb-3 mt-2">Services Offered</h2>
-  <hr /> -->
   <div class="container-fluid bg-dark g-0">
     <div class="row g-0">
       <div class="col-md-4">
@@ -120,6 +126,7 @@
         </div>
         <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-3">
           <a class="btn btn-lg btn-light btn-edit" href="{% url 'about' %}"
+          aria-label="Click for more information"
             ><i class="fas fa-info-circle px-2"></i>More Info</a
           >
         </div>

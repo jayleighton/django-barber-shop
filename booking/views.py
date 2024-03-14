@@ -133,6 +133,7 @@ def get_appointment_times(staff_id, appointment_date):
     Function to calculate available appointment time.
     The function receives the requested staff member and date for the calculation.
     The function returns a list object containing available appointment times
+    If no times are available, the function retuns a list containing 'None'
     """
 
     # Define appoint date

@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-import sys
 from django.contrib.messages import constants as messages
 import dj_database_url
 if os.path.exists("env.py"):
@@ -74,9 +73,9 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
+# Extended user model
 AUTH_USER_MODEL = 'home.User'
 ACCOUNT_FORMS = {'signup': 'home.forms.CustomSignUpForm'}
-
 
 
 MIDDLEWARE = [

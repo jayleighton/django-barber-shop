@@ -4,11 +4,11 @@ from django.contrib.admin import ModelAdmin
 from .models import Info, TradingDays, Service
 
 @admin.register(Info)
-class ShopInfo(admin.ModelAdmin):
+class ShopInfo(ModelAdmin):
     list_display = ('address1', 'address2', 'city', 'country', 'telephone', 'email')
 
 @admin.register(TradingDays)
-class TradingDaysAdmin(admin.ModelAdmin):
+class TradingDaysAdmin(ModelAdmin):
     list_display = ('day', 'open_time', 'close_time')
 
 @admin.register(Service)
