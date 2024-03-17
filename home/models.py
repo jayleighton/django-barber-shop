@@ -11,7 +11,9 @@ class User(AbstractUser):
     image = CloudinaryField('image', default='placeholder')
     is_manager = models.BooleanField(default=False)
     
-
+    class Meta:
+        ordering = ['id']
+        
     def __str__(self):
         return self.username
     

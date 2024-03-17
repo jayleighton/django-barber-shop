@@ -112,11 +112,15 @@ class MakeBooking(LoginRequiredMixin, TemplateView):
                 }
 
                 return context
+        
+        start_date = datetime.now().date() + timedelta(days=1)
+        print(start_date.strftime("%Y-%m-%d"))
         if staff_member_id is not None:
             # Create initial form with staff member already selected from about page
             context = {
                 'staff': professional,
                 'selected_staff': staff_member_id,
+                'date_to_book': start_date.strftime("%Y-%m-%d"),
             }
         
             return context
@@ -124,6 +128,7 @@ class MakeBooking(LoginRequiredMixin, TemplateView):
             # Create default initial form
             context = {
                 'staff': professional,
+                'date_to_book': start_date.strftime("%Y-%m-%d"),
             }
 
             return context

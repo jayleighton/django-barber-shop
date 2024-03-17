@@ -54,6 +54,7 @@
               {% if user.is_manager %}
               <div class="mt-auto">
                 <a href="{% url 'edit-staff' member.id %}" class="btn btn-lg btn-light btn-edit" 
+                id="id-edit-{{member.username}}"
                 aria-label="Click to edit {{member.first_name}}"
                 ><i class="far fa-edit"></i></a>
                 <button
