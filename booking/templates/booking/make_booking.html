@@ -33,10 +33,10 @@
           <label for="select-date" class="form-label">Appointment Date:</label>
           {% if date_to_book %}
           <input class="form-control" type="date" value="{{date_to_book}}" id="select-date"
-          name="booking-date" onchange="toggleDisplayOnChange()"/>
+          name="booking-date" onchange="toggleDisplayOnChange()">
           {% else %}
           <input class="form-control" type="date" value="{% now "Y-m-d" %}" id="select-date"
-          name="booking-date" />
+          name="booking-date">
           {% endif %}
           <div class="text-center d-grid gap-2 col-4 mx-auto mt-4 mb-4">
             <button type="submit" class="btn btn-light btn-lg btn-edit"

@@ -16,7 +16,7 @@
           class="service-img"
           src="{% static 'images/lina-verovaya-unsplash.webp' %}"
           alt=""
-        />
+        >
       </div>
       <div class="col-md-6">
         <p>
@@ -25,7 +25,7 @@
         </p>
         <p>
           Most hair salons are designed for women, leaving guys feeling like
-          they walked into the wrong place to get their haircut. <br />Bladez
+          they walked into the wrong place to get their haircut. <br>Bladez
           &amp; Fadez Barbershop was created as a place for men or boys so they
           too, would have a place where they feel most comfortable while getting
           a haircut.
@@ -42,8 +42,8 @@
         </p>
         <p>
           Bladez &amp; Fadez Barbershop specializes in Men's Haircuts, Boys
-          Haircuts, and many other barbershop services. <br />We cut men's hair
-          all day every day, and we're really good at it. <br />We know what
+          Haircuts, and many other barbershop services. <br>We cut men's hair
+          all day every day, and we're really good at it. <br>We know what
           looks good on you, your son, your father, and your grandfather too. We
           know the trends in men's hair. We'll make sure all the males in your
           family look amazing!
@@ -73,13 +73,13 @@
                 class="card-img-top"
                 src="{% static 'images/nobody.jpg' %}"
                 alt="placeholder image"
-              />
+              >
               {% else %}
               <img
                 class="card-img-top scale"
                 src=" {{ member.image.url }}"
                 alt="{{ member.first_name }}"
-              />
+              >
               {% endif %}
             </div>
 
@@ -91,8 +91,8 @@
             <div class="mt-auto text-center">
               <form action="{% url 'new-booking' %}" method="GET">
                 <input type="text" 
-                  name="staff-member" 
-                  id="staff-member"
+                  name="staff-member-{{member.id}}" 
+                  id="staff-member-{{member.id}}"
                   value="{{member.id}}" 
                   hidden>
                   <button type="submit" class="btn btn-lg btn-dark btn-edit"

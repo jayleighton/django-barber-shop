@@ -12,7 +12,7 @@
           class="mx-auto"
           src="{% static 'images/bandf_header_black.png' %}"
           alt="Bladez and Fadez Logo"
-        />
+        >
       </div>
       <div class="row">
         <div class="col-md-6 offset-md-3 mt-3 text-center">
@@ -30,7 +30,7 @@
 </section>
 
 <!-- Section for list of bookings -->
-<section class="booking-list">
+<div class="booking-list">
   <div class="container mt-2">
     <div class="row">
       <div class="col-12">
@@ -79,7 +79,7 @@
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- Modal -->
 {% for item in data %}
@@ -87,13 +87,13 @@
   class="modal fade"
   id="confirmDelete-{{item.id}}"
   tabindex="-1"
-  aria-labelledby="confirmDeleteLabel"
+  aria-labelledby="confirmDeleteLabel-{{item.id}}"
   aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="confirmDeleteLabel">Delete?</h5>
+        <h5 class="modal-title" id="confirmDeleteLabel-{{item.id}}">Delete?</h5>
       </div>
       <div class="modal-body">
         <p>

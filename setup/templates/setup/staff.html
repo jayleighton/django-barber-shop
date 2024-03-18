@@ -37,13 +37,14 @@
             <div class="card-body d-flex flex-column">
               <div class="image-container">
                 {% if "placeholder" in member.image.url %}
-                <img class="card-img-top" src="{% static 'images/nobody.jpg' %}" alt="placeholder image" />
+                <img class="card-img-top" src="{% static 'images/nobody.jpg' %}" alt="placeholder image">
                 {% else %}
                 <img
                   class="card-img-top scale"
                   src=" {{ member.image.url }}"
                   alt="{{ member.first_name }}"
-                />
+                
+                >
                 {% endif %}
               </div>
 
@@ -77,7 +78,7 @@
       </div>
     </div>
   </div>
-</div>
+
 
 
 {% for member in user_list %}
@@ -86,13 +87,13 @@
   class="modal fade"
   id="confirmDelete-{{member.id}}"
   tabindex="-1"
-  aria-labelledby="confirmDeleteLabel"
+  aria-labelledby="confirmDeleteLabel-{{member.id}}"
   aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="confirmDeleteLabel">Delete?</h5>
+        <h5 class="modal-title" id="confirmDeleteLabel-{{member.id}}">Delete?</h5>
       </div>
       <div class="modal-body">
         <p>Are you sure you want to delete user: {{member.first_name}} {{member.last_name}}?</p>

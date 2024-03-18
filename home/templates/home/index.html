@@ -3,7 +3,7 @@
 {% load static %}
 
 <!-- Heading section for page -->
-<section class="heading">
+<div class="heading">
   <div class="container-fluid">
     <div class="row">
       
@@ -12,11 +12,11 @@
           class="logo mt-5 mb-3"
           src="{% static 'images/logo.webp'%}"
           alt="Bladez and fadez logo"
-        />
+        >
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- Detail section containing shop and contact details -->
 <section class="details">
@@ -66,15 +66,15 @@
         {% endfor %}
       </div>
       <div class="col-md-4 text-center details-border">
-        <a href="{% url 'new-booking' %}"
-        ><button
+       
+        <a
             class="btn btn-lg btn-dark btn-book mt-2 mt-md-5 mb-2 mb-md-5"
             aria-label="Click to make a new booking"
+            href="{% url 'new-booking' %}"
           >
             <i class="fas fa-plus-square px-1"></i>
             Book Now
-          </button></a
-        >
+          </a>
       </div>
     </div>
   </div>
@@ -89,7 +89,7 @@
           src="{% static 'images/shaving_service.jpg'%}"
           alt="Person having hair cut"
           class="service-img"
-        />
+        >
       </div>
       <div class="col-md-4 text-white px-5 pt-4">
         <h3 class="text-center pt-5">Services Offered</h3>
@@ -137,7 +137,7 @@
           src="{% static 'images/beard_trimming.jpg'%}"
           alt="Man having beard trimmed"
           class="service-img"
-        />
+        >
       </div>
     </div>
     <div class="row bg-light g-0">
@@ -146,21 +146,21 @@
           src="{% static 'images/stylish-man-sitting-barbershop.webp' %}"
           alt="Image of barbers tools"
           class="service-img"
-        />
+        >
       </div>
       <div class="col-md-4">
         <img
           src="{% static 'images/stylish-man-sitting-barbershop-team.webp' %}"
           alt="Image of man at barbershop"
           class="service-img"
-        />
+        >
       </div>
       <div class="col-md-4">
         <img
           src="{% static 'images/woman-grooming-customer-barbershop.webp' %}"
           alt="Picture of cutting instruments"
           class="service-img"
-        />
+        >
       </div>
     </div>
   </div>

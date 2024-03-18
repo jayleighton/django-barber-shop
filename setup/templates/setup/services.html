@@ -15,7 +15,7 @@
           <div class="col-md-4 offset-md-4">
             <div class="text-center mt-2 mb-2 text-white">
               <h1>Services:</h1>
-              <hr />
+              <hr>
               <!-- Check user profile -->
               {% if user.is_manager %}
               <a
@@ -98,13 +98,13 @@
   class="modal fade"
   id="confirmDelete-{{item.id}}"
   tabindex="-1"
-  aria-labelledby="confirmDeleteLabel"
+  aria-labelledby="confirmDeleteLabel-{{item.id}}"
   aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="confirmDeleteLabel">Delete?</h5>
+        <h5 class="modal-title" id="confirmDeleteLabel-{{item.id}}">Delete?</h5>
       </div>
       <div class="modal-body">
         <p>Are you sure you want to delete service: {{item.name}}?</p>

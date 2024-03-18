@@ -3,17 +3,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bladez &amp; Fadez</title>
 
     <!-- Google fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
       href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Oswald:wght@200..700&display=swap"
       rel="stylesheet"
-    />
+    >
 
     <!-- Font Awesome Kit -->
     <script
@@ -27,10 +27,10 @@
       rel="stylesheet"
       integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
       crossorigin="anonymous"
-    />
+    >
 
     <!-- Custom css -->
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   </head>
   <body class="d-flex flex-column min-vh-100">
     {% with request.resolver_match.url_name as url_name %}
@@ -188,7 +188,6 @@
         {%now "Y" %} {% endblock %}
       </p>
 
-      <!-- <p class="m-3 text-center text-white">Follow us:</p> -->
       <p class="mt-1 text-center text-white">
         <a id="facebook-link" href="https://www.facebook.com/" target="_blank"
           ><i class="fab fa-facebook-square ms-5 foot-text"></i

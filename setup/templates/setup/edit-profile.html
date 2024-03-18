@@ -13,14 +13,14 @@
       <div class="row">
         <div class="col-md-6 offset-md-3 text-center">
           <h1>Edit Profile: {{username_value}}</h1>
-          <hr />
+          <hr>
         </div>
       </div>
     </div>
   </section>
   <!-- Section to edit information -->
-  <section class="edit-form">
-    <form action="" method="post" class="mt4" enctype="multipart/form-data">
+  <div class="edit-form">
+    <form method="post" class="mt4" enctype="multipart/form-data">
       {% csrf_token %} {{ form | crispy}}
       <div class="text-center d-grid gap-2 col-4 mx-auto mt-5 mb-5">
         <button class="btn btn-lg btn-light btn-edit" type="submit"
@@ -29,6 +29,6 @@
         </button>
       </div>
     </form>
-  </section>
+  </div>
 </div>
 {%endblock %}

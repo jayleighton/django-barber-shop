@@ -13,14 +13,14 @@
       <div class="row">
         <div class="col-md-6 offset-md-3 text-center">
           <h1>User Profile:</h1>
-          <hr />
+          <hr>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Profile details section -->
-  <section class="profile-details">
+  <div class="profile-details">
     <div class="container mt-4">
       <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -56,7 +56,7 @@
                     class="card-img-top"
                     src="{% static 'images/nobody.jpg' %}"
                     alt="placeholder image"
-                  />
+                  >
                 </td>
                 {% else %}
                 <td class="px-4">
@@ -64,7 +64,7 @@
                     class="profile-img"
                     src=" {{ user_data.image.url }}"
                     alt="{{ user_data.first_name }}"
-                  />
+                  >
                 </td>
                 {% endif %}
               </tr>
@@ -81,6 +81,6 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </div>
 {%endblock %}
