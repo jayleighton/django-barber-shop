@@ -33,7 +33,7 @@
                     <th scope="col">First Name</th>
                     <th scope="col">Last Name</th>
                     <th scope="col">Staff Status</th>
-                    <th scope="col"></th>
+                    <th scope="col" class="text-center">Add</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -52,7 +52,7 @@
                         class="btn btn-light btn-edit"
                         href="{% url 'add-staff' item.id%}"
                         aria-label="Click to add {{item.first_name}} as staff"
-                        ><i class="fas fa-plus-square"></i> Add as Staff</a
+                        ><i class="fas fa-plus-square"></i> Add</a
                       >
                     </td>
                     {% endif %}

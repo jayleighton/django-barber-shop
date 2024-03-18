@@ -46,7 +46,8 @@
                     <th scope="col">Created Date</th>
                     <th scope="col">Updated Date</th>
                     {% if user.is_manager %}
-                    <th scope="col"></th>
+                    <th scope="col" class="text-center">Edit</th>
+                    <th scope="col" class="text-center">Delete</th>
                     {% endif %}
                   </tr>
                 </thead>
@@ -66,14 +67,16 @@
                     {% if user.is_manager %}
                     <td class="text-center">
                       <a
-                        class="btn btn-light btn-edit ms-1"
+                        class="btn btn-light btn-edit"
                         href="{% url 'edit-service' item.id %}"
                         aria-label="Click to edit {{item.name}} service"
                         ><i class="far fa-edit"></i
                       ></a>
+                    </td>
+                    <td class="text-center">
                       <button
                         type="button"
-                        class="btn btn-light btn-edit ms-5"
+                        class="btn btn-light btn-edit"
                         data-bs-toggle="modal"
                         data-bs-target="#confirmDelete-{{item.id}}"
                         aria-label="Click to delete {{item.name}} service"

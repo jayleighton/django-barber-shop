@@ -43,7 +43,8 @@
                     <th scope="col">Open Time</th>
                     <th scope="col">Closing Time</th>
                     {% if user.is_manager %}
-                    <th scope="col"></th>
+                    <th scope="col" class="text-center">Edit</th>
+                    <th scope="col" class="text-center">Delete</th>
                     {% endif %}
                   </tr>
                 </thead>
@@ -56,14 +57,16 @@
                     {% if user.is_manager %}
                     <td class="text-center">
                       <a
-                        class="btn btn-light btn-edit ms-1"
+                        class="btn btn-light btn-edit ms-md-2"
                         href="{% url 'edit-trading-days' data.id %}"
                         aria-label="Click to edit {{data.get_day_display}}"
                         ><i class="far fa-edit"></i
                       ></a>
+                    </td>
+                    <td class="text-center">
                       <button
                         type="button"
-                        class="btn btn-light btn-edit ms-5"
+                        class="btn btn-light btn-edit ms-md-2"
                         data-bs-toggle="modal"
                         data-bs-target="#confirmDelete-{{data.id}}"
                         aria-label="Click to delete {{data.get_day_display}}"
