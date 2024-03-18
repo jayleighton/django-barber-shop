@@ -121,7 +121,7 @@ CSRF_TRUSTED_HOSTS = [
     "https://*.herokuapp.com",
 ]
 
-
+X_FRAME_OPTIONS = "SAMEORIGIN"
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
