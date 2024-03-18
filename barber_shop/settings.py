@@ -33,6 +33,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
 ALLOWED_HOSTS = [".herokuapp.com", "127.0.0.1", "*ui.dev"]
 
 
@@ -121,7 +123,7 @@ CSRF_TRUSTED_HOSTS = [
     "https://*.herokuapp.com",
 ]
 
-X_FRAME_OPTIONS = "SAMEORIGIN"
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
