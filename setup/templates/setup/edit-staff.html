@@ -18,7 +18,10 @@
         <form
           method="post"
           enctype="multipart/form-data"
-          action="{% if mode == 'Add'%}{% url 'add-staff' staff_id %}{% endif %}"
+          action="{% if mode == 'Add'%}{% url 'add-staff' staff_id %}
+          {%else%}
+          {% url 'edit-staff' staff_id %}
+          {% endif %}"
         >
           {% csrf_token%} {{ staff_form | crispy }} {{form.media}}
           <div class="text-center d-grid gap-2 col-4 mx-auto mt-5 mb-5">
