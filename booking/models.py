@@ -2,12 +2,12 @@ from django.db import models
 from home.models import User
 from setup.models import Service
 
-# Create your models here.
+
 class Booking(models.Model):
     """
     Model for managing booked appointments
     """
-    customer_id = models.ForeignKey(User, 
+    customer_id = models.ForeignKey(User,
                                     on_delete=models.CASCADE,
                                     related_name='user_id')
     staff_id = models.ForeignKey(User,
@@ -25,4 +25,5 @@ class Booking(models.Model):
         ordering = ['created_on']
 
     def __str__(self):
-        return f'{self.customer_id} {self.staff_id} {self.service_id} {self.booking_start}'
+        return f'{self.customer_id} {self.staff_id}' \
+            f'{self.service_id} {self.booking_start}'

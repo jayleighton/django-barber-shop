@@ -27,7 +27,8 @@ class Info(models.Model):
 
     def __str__(self):
         return f"{self.address1}, {self.address2}, {self.city}, {self.country}"
-    
+
+
 class TradingDays(models.Model):
     """
     Model for trading days and operating hours
@@ -38,7 +39,8 @@ class TradingDays(models.Model):
 
     def __str__(self):
         return f"{self.day} {self.open_time} - {self.close_time}"
-    
+
+
 class Service(models.Model):
     """
     Model for services offered with pricing
@@ -56,4 +58,3 @@ class Service(models.Model):
 
     def __str__(self):
         return f"{self.description} - \u20ac{self.price:.2f}"
-

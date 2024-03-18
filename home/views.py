@@ -11,11 +11,12 @@ def home_page(request):
     """
     queryset = Info.objects.first()
     days = TradingDays.objects.all().order_by('day')
-    
+
     return render(request, 'home/index.html', {
         'details': queryset,
         'days': days
     })
+
 
 class CustomSignUpView(SignupForm):
     """
@@ -25,18 +26,14 @@ class CustomSignUpView(SignupForm):
     form_class = CustomSignUpForm
     template_name = 'signup.html'
 
+
 def about_page(request):
     """
     View to render the about page to the user
     """
-    staff = User.objects.filter(is_staff=True, is_superuser=False).order_by('date_joined')
-   
+    staff = User.objects.filter(is_staff=True, is_superuser=False).order_by(
+        'date_joined')
+
     return render(request, 'home/about.html', {
         'staff_list': staff,
     })
-    
-
-
-
-
-    
