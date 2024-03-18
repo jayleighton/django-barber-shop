@@ -18,7 +18,7 @@
         <form
           method="post"
           enctype="multipart/form-data"
-          action="{% if mode == 'Add'%}{% url 'add-staff' staff_id %}
+          action="{% if mode == 'add'%}{% url 'add-staff' staff_id %}
           {%else%}
           {% url 'edit-staff' staff_id %}
           {% endif %}"

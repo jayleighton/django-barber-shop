@@ -15,7 +15,7 @@
           src="{% static 'images/logo.webp' %}"
           alt="bladez and fadez logo"
           class="full-logo"
-        />
+        >
         <h1 class="text-center pb-2">{% trans "Sign Out" %}</h1>
 
          <p>{% trans 'Are you sure you want to sign out?' %}</p>
@@ -31,18 +31,16 @@
                 type="hidden"
                 name="{{ redirect_field_name }}"
                 value="{{ redirect_field_value }}"
-              />
+              >
               {% endif %}
-              <div class="d-grid gap-2 col-8 mx-auto">
-              <button class="btn btn-lg btn-signout btn-light right m-5" type="submit">{% trans 'Sign Out' %}</button>
-            </div>
+                <div class="d-grid gap-2 col-8 mx-auto">
+                  <button class="btn btn-lg btn-signout btn-light right m-5" type="submit">{% trans 'Sign Out' %}</button>
+                </div>
+
+            </form>
           </div>
         </div>
-        
-        </form>
       </div>
-    </div>
-  </div>
-</div>
+    
 
 {% endblock content %}
