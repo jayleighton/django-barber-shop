@@ -18,6 +18,10 @@ p a i {
   display: None;
 }
 
+.disabled-link {
+  pointer-events: none;
+}
+
 /* Account page styling */
 .auth-container {
   background-color: #040404;
