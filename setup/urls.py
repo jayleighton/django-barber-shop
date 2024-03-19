@@ -29,7 +29,7 @@ urlpatterns = [
     path('staff/',
          views.StaffList.as_view(), name='staff'),
     path('staff/select/',
-         views.select_staff, name='select-staff'),
+         views.SelectStaff.as_view(), name='select-staff'),
     path('staff/edit-staff/<int:staff_id>/',
          views.edit_staff, name='edit-staff'),
     path('staff/add/<slug:user_id>/',

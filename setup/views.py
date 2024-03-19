@@ -90,20 +90,23 @@ class StaffList(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return self.request.user.is_staff or self.request.user.is_manager
 
 
-@login_required
-def select_staff(request):
+class SelectStaff(LoginRequiredMixin, UserPassesTestMixin, ListView):
     """
-    View to select users that are not staff members for the manager
-    to update when creating new staff members
+    View to display list of users not classified as staff
     """
+    template_name = 'setup/select_staff.html'
+    context_object_name = 'data'
+    model = User
+    paginate_by = 10
 
-    if not request.user.is_staff:
-        raise PermissionDenied
-    else:
-        queryset = User.objects.filter(is_staff=False, is_superuser=False)
-        return render(request, 'setup/select_staff.html', {
-            'data': queryset,
-        })
+    def get_queryset(self, **kwargs):
+        queryset = self.model.objects.filter(
+            is_staff=False, is_superuser=False
+        ).order_by('-date_joined')
+        return queryset
+
+    def test_func(self) -> bool | None:
+        return self.request.user.is_manager
 
 
 @login_required
@@ -358,6 +361,7 @@ class ServiceList(LoginRequiredMixin, UserPassesTestMixin, ListView):
     template_name = 'setup/services.html'
     context_object_name = 'data'
     model = Service
+    paginate_by = 4
 
     def test_func(self) -> bool | None:
         """

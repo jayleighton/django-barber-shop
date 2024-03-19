@@ -86,6 +86,11 @@ p a i {
   background-color: #040404;
 }
 
+.page-dark {
+  text-decoration: none;
+  color: #040404;
+}
+
 .details-border {
   border-bottom: 1px solid #040404;
   border-left: 1px solid #040404;

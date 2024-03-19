@@ -21,6 +21,7 @@ class BookingList(LoginRequiredMixin, ListView):
     template_name = 'booking/booking.html'
     context_object_name = 'data'
     model = Booking
+    paginate_by = 8
 
     def get_queryset(self, **kwargs):
         queryset = ''
