@@ -2,7 +2,7 @@
 body {
   
   font-family: "Lato", sans-serif;
-  background-color: #fffbf5;
+  background-color: #d4d4d4 ;
 }
 
 nav,
@@ -11,7 +11,7 @@ footer {
 }
 
 p a i {
-  color: white;
+  color: #d4d4d4 ;
 }
 
 .hide-component {
@@ -21,6 +21,7 @@ p a i {
 .disabled-link {
   pointer-events: none;
 }
+
 
 /* Account page styling */
 .auth-container {
@@ -59,7 +60,7 @@ p a i {
 
 /* Button styling and effects*/
 .btn-signup:hover {
-  color: #fff;
+  color: #d4d4d4 ;
   background-color: #040404;
 }
 
@@ -68,17 +69,17 @@ p a i {
 }
 
 .btn-signout:hover {
-  color: #fff;
+  color: #d4d4d4 ;
   background-color: #040404;
 }
 
 .btn-edit:hover {
-  color: #fff;
+  color: #d4d4d4 ;
   background-color: #040404;
 }
 
 .btn-delete:hover {
-  color: #fff;
+  color: #d4d4d4 ;
   background-color: red;
 }
 
